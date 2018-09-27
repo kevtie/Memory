@@ -20,9 +20,20 @@ namespace Memory
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Constructor
         public MainWindow()
         {
             InitializeComponent();
+
+            NewGame();
         }
+        #endregion
+
+        #region Private NewGame
+        private void NewGame()
+        {
+
+        }
+        #endregion
     }
 }
