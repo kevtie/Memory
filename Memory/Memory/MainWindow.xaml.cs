@@ -21,50 +21,6 @@ namespace Memory
     public partial class MainWindow : Window
     {
 
-        int rowCount, columnCount;
-
-
-        #region Constructor
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            // if game is not loaded
-            NewGame();
-        }
-        #endregion
-
-        #region Private NewGame
-        private void NewGame()
-        {
-            List<Button> buttons = new List<Button>();
-
-            ClearMemoryContainer();
-            SetMemoryContainer(4, 4);
-            FillMemoryContainer();
-        }
-        #endregion
-
-        #region Private ClearMemoryContainer
-        private void ClearMemoryContainer()
-        {
-            MemoryContainer.Children.Clear();
-        }
-        #endregion
-
-        #region Private FillMemoryContainer
-        private void FillMemoryContainer()
-        {
-            MemoryContainer.Children.Add(new Button());
-        }
-        #endregion
-
-        #region Private SetMemoryContainer
-        private void SetMemoryContainer(int columns, int rows)
-        {
-            rowCount = rows;
-            columnCount = columns;
-        }
-        #endregion
+        
     }
 }

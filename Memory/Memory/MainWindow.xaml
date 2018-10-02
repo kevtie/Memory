@@ -7,17 +7,12 @@
         mc:Ignorable="d"
         Title="Memory game" Height="500" Width="500">
 
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderThickness" Value="0.5" />
-            <Setter Property="FontSize" Value="30" />
-        </Style>
-    </Window.Resources>
-    <Grid x:Name="MemoryContainer">
-        <Grid.ColumnDefinitions>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-        </Grid.RowDefinitions>
-    </Grid>
+    <DockPanel>
+        <StackPanel>
+            <ComboBox DockPanel.Dock="Top">
+                <ComboBoxItem IsSelected="True">4x4</ComboBoxItem>
+                <ComboBoxItem>6x6</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+    </DockPanel>
 </Window>
