@@ -8,7 +8,16 @@
         Title="GameView" Height="350" Width="500">
     <DockPanel>
         <StackPanel Margin="10">
-            <ComboBox x:Name="GridOptions" DockPanel.Dock="Top" />
+            <ComboBox x:Name="GridOptions" 
+                SelectionChanged="GridOptions_SelectionChanged" 
+                DockPanel.Dock="Top">
+                <ComboBoxItem>
+                    4x4
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    6x6
+                </ComboBoxItem>
+            </ComboBox>
         </StackPanel>
 
         <Grid x:Name="Grid" 
