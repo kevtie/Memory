@@ -24,5 +24,25 @@ namespace Memory
         {
             InitializeComponent();
         }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Speel het spel met 2 tot 4 spelers Probeer zoveel mogelijk twee dezelfde kaartjes om te draaien");
+        }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
