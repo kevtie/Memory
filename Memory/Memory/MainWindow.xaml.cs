@@ -37,7 +37,7 @@ namespace Memory
 
         private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Speel het spel met 2 tot 4 spelers Probeer zoveel mogelijk twee dezelfde kaartjes om te draaien");
+            Help = new Help(); 
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
