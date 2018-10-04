@@ -4,18 +4,77 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace Memory.Views
 {
+    public class Card 
+    {
+        public int Id;
+        public string Title;
+        public int Row;
+        public int Column;
+
+        public Card(int column, int row, string title)
+        {
+            Title = title;
+            Row = row;
+            Column = column;
+        }
+    }
+
     /// <summary>
     /// Interaction logic for GameView.xaml
     /// </summary>
     public partial class GameView : Window
     {
+        private int rows = 4;
+        private int columns = 4;
+
+        private List<Card> cards;
+
         public GameView()
         {
             InitializeComponent();
-            CreateGrid(10, 10);
+            CreateGrid(columns, rows);
+            SetCards(columns, rows);
+            AddCards();
+        }
+
+        private void AddCard(string title, int column, int row)
+        {
+            Button button = new Button();
+            button.Content = title;
+            Grid.SetColumn(button, column);
+            Grid.SetRow(button, row);
+            Grid.Children.Add(button);
+        }
+
+        private void AddCards()
+        {
+            foreach(var card in cards)
+            {
+                AddCard(card.Title, card.Column, card.Row);
+            }
+        }
+
+        private void SetCards(int columns, int rows)
+        {
+            cards = new List<Card>();
+
+            for(int i = 0; i < (columns * rows / 2); i++)
+            {
+                cards.Add(new Card(i, i, "Card" + i));
+                cards.Add(new Card(i, i, "Card" + i));
+            }
         }
 
         private void ClearGrid()

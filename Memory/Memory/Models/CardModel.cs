@@ -5,6 +5,6 @@ namespace Memory.Models
 {
     class CardModel
     {
-      
+        
     }
 }
