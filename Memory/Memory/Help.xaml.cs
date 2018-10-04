@@ -10,18 +10,40 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Memory
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for Help.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class Help : Page
     {
-        public Window1()
+        public Help()
         {
             InitializeComponent();
+        }
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new Help();
+
+
+        }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

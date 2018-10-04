@@ -19,30 +19,36 @@ namespace Memory
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
+
     {
         public MainWindow()
         {
             InitializeComponent();
+            this.Content = new Help();
         }
 
-        private void StartButton_Click(object sender, RoutedEventArgs e)
-        {
+         
+
+        //private void StartButton_Click(object sender, RoutedEventArgs e)
+        //{
             
-        }
+        //}
 
-        private void LoadButton_Click(object sender, RoutedEventArgs e)
-        {
+        //private void LoadButton_Click(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
 
-        private void HelpButton_Click(object sender, RoutedEventArgs e)
-        {
-            Help = new Help(); 
-        }
+        //private void HelpButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Content = new Help();
+                     
+        
+        //}
 
-        private void QuitButton_Click(object sender, RoutedEventArgs e)
-        {
+        //private void QuitButton_Click(object sender, RoutedEventArgs e)
+        //{
 
-        }
+        //}
     }
 }
