@@ -43,10 +43,13 @@ namespace Memory.Views
     /// </summary>
     public partial class GameView : Window
     {
-        private int rows = 10;
-        private int columns = 10;
+        private static int rows = 4;
+        private static int columns = 4;
 
         private List<Card> cards = new List<Card>();
+
+        private int[] filledColumns = new int[columns * rows];
+        private int[] filledRows = new int[columns * rows];
 
         public GameView()
         {
@@ -80,8 +83,8 @@ namespace Memory.Views
 
         private void AddCard(int id, int column, int row, string title, bool flipped, Brush frontBackground, Brush backBackground)
         {
-            cards.Add(new Card(id, column, GetRandomNumber(row), title, flipped, frontBackground, backBackground));
-            cards.Add(new Card(id, 0, 0, title, flipped, frontBackground, backBackground));
+            cards.Add(new Card(id, CheckFilled(filledColumns, GetRandomNumber(column)), CheckFilled(filledRows, GetRandomNumber(row)), title, flipped, frontBackground, backBackground));
+            cards.Add(new Card(id, CheckFilled(filledColumns, GetRandomNumber(column)), CheckFilled(filledRows, GetRandomNumber(row)), title, flipped, frontBackground, backBackground));
         }
 
         private void AddCards(int columns, int rows)
@@ -95,11 +98,32 @@ namespace Memory.Views
                     if(id > (columns * rows / 2))
                         id = 1;
 
-                    AddCard(id, x, y, $"Card {id}", false, GetRandomColor(id), Brushes.Red);
+                    filledColumns[id] = x;
+                    filledRows[id] = y;
+
+                    AddCard(
+                        id, 
+                        x,
+                        y, 
+                        $"Card {id}", 
+                        false, 
+                        GetRandomColor(id),     
+                        Brushes.Red
+                    );
 
                     id++;
                 }
             }
+        }
+
+        private int CheckFilled(int[] filled, int target)
+        {
+            // Make recursive
+            // Set random number until !filled.Contains(target)
+            if(filled.Contains(target))
+                return target;
+
+            return 0;
         }
 
         private SolidColorBrush GetRandomColor(int seed)
@@ -183,7 +207,7 @@ namespace Memory.Views
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             cards.Clear();
-            CreateGrid(4, 4);
+            CreateGrid(rows, columns);
         }
 
         private void Card_Click(object sender, RoutedEventArgs e)
