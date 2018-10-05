@@ -23,8 +23,9 @@ namespace Memory.Views
         public int Row;
         public int Column;
 
-        public Card(int column, int row, string title)
+        public Card(int id, int column, int row, string title)
         {
+            Id = id;
             Title = title;
             Row = row;
             Column = column;
@@ -49,7 +50,7 @@ namespace Memory.Views
             AddCards();
         }
 
-        private void AddCard(string title, int column, int row)
+        private void AddCard(int id, string title, int column, int row)
         {
             Button button = new Button();
             button.Content = title;
@@ -62,18 +63,30 @@ namespace Memory.Views
         {
             foreach(var card in cards)
             {
-                AddCard(card.Title, card.Column, card.Row);
+                AddCard(card.Id, card.Title, card.Column, card.Row); 
+                AddCard(card.Id, card.Title, card.Column, card.Row); 
             }
         }
 
         private void SetCards(int columns, int rows)
         {
             cards = new List<Card>();
+            int id = 1;
 
-            for(int i = 0; i < (columns * rows / 2); i++)
+            for(int x = 0; x < columns; x++)
             {
-                cards.Add(new Card(i, i, "Card" + i));
-                cards.Add(new Card(i, i, "Card" + i));
+                for(int y = 0; y < rows; y++) 
+                {
+                    if(id > (columns * rows / 2))
+                    {
+                        id = 1;
+                    }
+
+                    cards.Add(new Card(id, x, y, $"Card {id}"));
+
+                    id++;
+
+                }
             }
         }
 
