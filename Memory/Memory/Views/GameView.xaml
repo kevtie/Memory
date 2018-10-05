@@ -8,7 +8,8 @@
         Title="GameView" Height="350" Width="500">
     <DockPanel>
         <StackPanel Margin="10">
-            <ComboBox x:Name="GridOptions" 
+			<Button x:Name="Shuffle" Click="Reset_Click" Content="Shuffle" />
+			<ComboBox x:Name="GridOptions" 
                 SelectionChanged="GridOptions_SelectionChanged" 
                 DockPanel.Dock="Top">
                 <ComboBoxItem>
@@ -25,6 +26,7 @@
             Margin="10">
             <Grid.ColumnDefinitions />
             <Grid.RowDefinitions />
+
         </Grid>
     </DockPanel>
 </Window>

@@ -22,13 +22,19 @@ namespace Memory.Views
         public string Title;
         public int Row;
         public int Column;
+        public bool Flipped;
+        public Brush FrontBackground;
+        public Brush BackBackground;
 
-        public Card(int id, int column, int row, string title)
+        public Card(int id, int column, int row, string title, bool flipped, Brush frontBackground, Brush backBackground)
         {
             Id = id;
             Title = title;
             Row = row;
             Column = column;
+            Flipped = flipped;
+            FrontBackground = frontBackground;
+            BackBackground = backBackground;
         }
     }
 
@@ -37,40 +43,49 @@ namespace Memory.Views
     /// </summary>
     public partial class GameView : Window
     {
-        private int rows = 4;
-        private int columns = 4;
+        private int rows = 10;
+        private int columns = 10;
 
-        private List<Card> cards;
+        private List<Card> cards = new List<Card>();
 
         public GameView()
         {
             InitializeComponent();
             CreateGrid(columns, rows);
-            SetCards(columns, rows);
-            AddCards();
         }
 
-        private void AddCard(int id, string title, int column, int row)
+        private void SetCard(int id, string title, int column, int row, bool flipped, Brush frontBackground, Brush backBackground)
         {
             Button button = new Button();
             button.Content = title;
+            button.Click += Card_Click;
+
+            if(!flipped)
+                button.Background = frontBackground;
+            else
+                button.Background = backBackground;
+
             Grid.SetColumn(button, column);
             Grid.SetRow(button, row);
             Grid.Children.Add(button);
         }
 
-        private void AddCards()
+        private void SetCards()
         {
             foreach(var card in cards)
             {
-                AddCard(card.Id, card.Title, card.Column, card.Row); 
-                AddCard(card.Id, card.Title, card.Column, card.Row); 
+                SetCard(card.Id, card.Title, card.Column, card.Row, card.Flipped, card.FrontBackground, card.BackBackground); 
             }
         }
 
-        private void SetCards(int columns, int rows)
+        private void AddCard(int id, int column, int row, string title, bool flipped, Brush frontBackground, Brush backBackground)
         {
-            cards = new List<Card>();
+            cards.Add(new Card(id, column, GetRandomNumber(row), title, flipped, frontBackground, backBackground));
+            cards.Add(new Card(id, 0, 0, title, flipped, frontBackground, backBackground));
+        }
+
+        private void AddCards(int columns, int rows)
+        {
             int id = 1;
 
             for(int x = 0; x < columns; x++)
@@ -78,17 +93,32 @@ namespace Memory.Views
                 for(int y = 0; y < rows; y++) 
                 {
                     if(id > (columns * rows / 2))
-                    {
                         id = 1;
-                    }
 
-                    cards.Add(new Card(id, x, y, $"Card {id}"));
+                    AddCard(id, x, y, $"Card {id}", false, GetRandomColor(id), Brushes.Red);
 
                     id++;
-
                 }
             }
         }
+
+        private SolidColorBrush GetRandomColor(int seed)
+        {
+            Random random = new Random(GetRandomNumber(seed));
+
+            return new SolidColorBrush(
+                Color.FromRgb(
+                    (byte)random.Next(256),
+                    (byte)random.Next(256),
+                    (byte)random.Next(256)
+                ));
+        }
+
+        private int GetRandomNumber(int max, int min = 0)
+        {
+            return new Random().Next(min, max);
+        }
+
 
         private void ClearGrid()
         {
@@ -99,6 +129,8 @@ namespace Memory.Views
         private void CreateGrid(int columns, int rows)
         {
             ClearGrid();
+            AddCards(columns, rows);
+            SetCards();
 
             for (int i = 0; i < columns; i++)
             {
@@ -137,13 +169,26 @@ namespace Memory.Views
             {
                 case "4x4":
                     Background = new SolidColorBrush(Colors.Blue);
+                    cards.Clear();
                     CreateGrid(4, 4);
                     break;
                 case "6x6":
                     Background = new SolidColorBrush(Colors.Red);
+                    cards.Clear();
                     CreateGrid(6, 6);
                     break;
             }
+        }
+
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            cards.Clear();
+            CreateGrid(4, 4);
+        }
+
+        private void Card_Click(object sender, RoutedEventArgs e)
+        {
+            this.Title = (e.Source as Button).Content.ToString();
         }
     }
 }
