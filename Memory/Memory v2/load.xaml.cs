@@ -13,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Memory
+namespace Memory_v2
 {
     /// <summary>
-    /// Interaction logic for Help.xaml
+    /// Interaction logic for load.xaml
     /// </summary>
-    public partial class Help : Page
+    public partial class load : Page
     {
-        public Help()
+        public load()
         {
             InitializeComponent();
- 
-        }
-
-        private void back_Click(object sender, RoutedEventArgs e)
-        {
-            this.Content = new MainWindow();
-
         }
     }
 }

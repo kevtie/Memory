@@ -5,10 +5,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Memory"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="Button">
 
-    <Grid>
-        
-    </Grid>
+
+    <Border Padding="0 200 0 0">
+        <StackPanel>
+            <Button x:Name="StartButton" Click="StartButton_Click" Padding="0 10 0 10">start</Button>
+            <Button x:Name="LoadButton" Click="LoadButton_Click" Padding="0 10 0 10">load</Button>
+            <Button x:Name="HelpButton" Click="HelpButton_Click" Padding="0 10 0 10">help</Button>
+            <Button x:Name="QuitButton" Click="QuitButton_Click" Padding="0 10 0 10">quit</Button>
+        </StackPanel>
+    </Border>
+
+
+
 </Page>

@@ -24,5 +24,24 @@ namespace Memory
         {
             InitializeComponent();
         }
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+          this.Content = new Help();
+        }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

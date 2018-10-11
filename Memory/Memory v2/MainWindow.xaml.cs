@@ -13,50 +13,43 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Memory
+namespace Memory_v2
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-
     {
         public MainWindow()
         {
             InitializeComponent();
         }
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Clicknew(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        private void Button_Clickload(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new load();
+        }
+
+        private void Button_Clickhelp(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Help();
+        }
+
+        private void Button_Clickscore(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        private void Button_Clickquit(object sender, RoutedEventArgs e)
         {
-            this.Content = new Help();
+            Close();
         }
 
-        private void QuitButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       
     }
 }
