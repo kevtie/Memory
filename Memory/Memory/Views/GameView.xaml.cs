@@ -38,6 +38,18 @@ namespace Memory.Views
         }
     }
 
+    public class Position
+    {
+        public int X;
+        public int Y;
+
+        public Position(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+    }
+
     public partial class GameView : Window
     {
         private const int FIRST_GAME_GRID_ROWS = 4;
@@ -49,6 +61,7 @@ namespace Memory.Views
         private int currentGameGridRows = FIRST_GAME_GRID_ROWS;
         private int currentGameGridColumns = FIRST_GAME_GRID_COLUMNS;
 
+        private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
 
         public GameView()
@@ -68,18 +81,10 @@ namespace Memory.Views
             currentGameGridColumns = cols;
         }
 
-        private void ShuffleCards()
+        private void RandomizePositions()
         {
             Random rng = new Random();
-
-            int n = cards.Count;  
-            while (n > 1) {  
-                n--;  
-                int k = rng.Next(n + 1);  
-                Card card = cards[k];
-                cards[k] = cards[n];  
-                cards[n] = card;  
-            }  
+            positions = positions.OrderBy(x => rng.Next()).ToList();
         }
 
         private void SetCard(int id, string title, int column, int row, bool flipped, Brush frontBackground, Brush backBackground)
@@ -88,6 +93,7 @@ namespace Memory.Views
             button.Content = title;
             button.Click += Card_Click;
 
+            // Set in FlipCard method
             if(!flipped)
                 button.Background = frontBackground;
             else
@@ -109,32 +115,39 @@ namespace Memory.Views
         private void AddCard(int id, int column, int row, string title, bool flipped, Brush frontBackground, Brush backBackground)
         {
             cards.Add(new Card(id, column, row, title, flipped, frontBackground, backBackground));
-            cards.Add(new Card(id, column, row, title, flipped, frontBackground, backBackground));
         }
 
-        private void AddCards(int cols, int rows)
+        private void AddPositions(int cols, int rows)
+        {
+            for(int row = 0; row < rows; row++)
+            {
+                for(int col = 0; col < cols; col++) 
+                {
+                    positions.Add(new Position(row, col));
+                }
+            }
+        }
+
+        private void AddCards()
         {
             int id = 1;
 
-            for(int x = 0; x < cols; x++)
+            foreach(var pos in positions)
             {
-                for(int y = 0; y < rows; y++) 
-                {
-                    if(id > (cols * rows / 2))
-                        id = 1;
+                if(id > GetGridSize() / 2)
+                    id = 1;
 
-                    AddCard(
-                        id, 
-                        x,
-                        y, 
-                        $"Card {id}", 
-                        false, 
-                        GetRandomColor(id),     
-                        Brushes.Red
-                    );
+                 AddCard(
+                    id, 
+                    pos.X,
+                    pos.Y, 
+                    $"Card {id} [{pos.X} - {pos.Y}", 
+                    false, 
+                    Brushes.White,     
+                    Brushes.Red
+                );
 
-                    id++;
-                }
+                id++;
             }
         }
 
@@ -166,8 +179,9 @@ namespace Memory.Views
         {
             ClearGrid();
             SetGridSize(cols, rows);
-            AddCards(cols, rows);
-            ShuffleCards();
+            AddPositions(cols, rows);
+            RandomizePositions();
+            AddCards();
             SetCards();
 
             for (int i = 0; i < cols; i++)
