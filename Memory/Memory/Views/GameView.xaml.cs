@@ -50,6 +50,18 @@ namespace Memory.Views
         }
     }
 
+    public class Background
+    {
+        public int Id;
+        public SolidColorBrush Color;
+
+        public Background(int id, SolidColorBrush color)
+        {
+            Id = id;
+            Color = color;
+        }
+    }
+
     public partial class GameView : Window
     {
         private const int FIRST_GAME_GRID_ROWS = 4;
@@ -63,6 +75,7 @@ namespace Memory.Views
 
         private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
+        private List<Background> backgrounds = new List<Background>();
 
         public GameView()
         {
@@ -128,14 +141,29 @@ namespace Memory.Views
             }
         }
 
+        private void AddBackgrounds()
+        {
+            for(int i = 0; i < GetGridSize() / 2; i++)
+            {
+                backgrounds.Add(new Background(i, GetRandomColor(i)));
+            }
+        }
+
         private void AddCards()
         {
             int id = 1;
+            Brush cbg = new SolidColorBrush(Colors.Red);
 
             foreach(var pos in positions)
             {
                 if(id > GetGridSize() / 2)
                     id = 1;
+
+                foreach(var bg in backgrounds)
+                {
+                    if(id == bg.Id)
+                        cbg = bg.Color;
+                }
 
                  AddCard(
                     id, 
@@ -143,7 +171,7 @@ namespace Memory.Views
                     pos.Y, 
                     $"Card {id} [{pos.X} - {pos.Y}] ({positions.Count})", 
                     false, 
-                    Brushes.White,     
+                    cbg,     
                     Brushes.Red
                 );
 
@@ -181,6 +209,7 @@ namespace Memory.Views
             ClearGrid();
             SetGridSize(cols, rows);
             AddPositions(cols, rows);
+            AddBackgrounds();
             RandomizePositions();
             AddCards();
             SetCards();
