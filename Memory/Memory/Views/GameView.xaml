@@ -8,25 +8,25 @@
         Title="GameView" Height="350" Width="500" WindowState="Maximized">
     <DockPanel>
         <StackPanel Margin="10">
-			<Button x:Name="Shuffle" Click="Reset_Click" Content="Reset" />
-			<ComboBox x:Name="GridOptions" 
-                SelectionChanged="GridOptions_SelectionChanged" 
-                DockPanel.Dock="Top">
-                <ComboBoxItem>
-                    4x4
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    6x6
-                </ComboBoxItem>
-            </ComboBox>
+			    <Button x:Name="Shuffle" Click="Reset_Click" Content="Reset" />
+			    <ComboBox x:Name="GridOptions" 
+              SelectionChanged="GridOptions_SelectionChanged" 
+              DockPanel.Dock="Top">
+              <ComboBoxItem>
+                  4x4
+              </ComboBoxItem>
+              <ComboBoxItem>
+                  6x6
+              </ComboBoxItem>
+          </ComboBox>
         </StackPanel>
 
         <Grid x:Name="Grid" 
             ShowGridLines="True"
             Margin="10">
+
             <Grid.ColumnDefinitions />
             <Grid.RowDefinitions />
-
         </Grid>
     </DockPanel>
 </Window>

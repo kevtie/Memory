@@ -23,10 +23,10 @@ namespace Memory.Views
         public int Row;
         public int Column;
         public bool Flipped;
-        public Brush FrontBackground;
+        public string FrontBackground;
         public Brush BackBackground;
 
-        public Card(int id, int column, int row, string title, bool flipped, Brush frontBackground, Brush backBackground)
+        public Card(int id, int column, int row, string title, bool flipped, string frontBackground, Brush backBackground)
         {
             Id = id;
             Title = title;
@@ -54,11 +54,13 @@ namespace Memory.Views
     {
         public int Id;
         public SolidColorBrush Color;
+        public string Picture;
 
-        public Background(int id, SolidColorBrush color)
+        public Background(int id, SolidColorBrush color, string picture)
         {
             Id = id;
             Color = color;
+            Picture = picture;
         }
     }
 
@@ -100,17 +102,30 @@ namespace Memory.Views
             positions = positions.OrderBy(x => rng.Next()).ToList();
         }
 
-        private void SetCard(int id, string title, int column, int row, bool flipped, Brush frontBackground, Brush backBackground)
+        private void SetCard(int id, string title, int column, int row, bool flipped, string frontBackground, Brush backBackground)
         {
+            Image img = new Image();
+            img.Source = new BitmapImage(new Uri("C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/catharina/00fool.jpg", UriKind.Absolute));
+
+            TextBlock tb = new TextBlock();
+            var bold = new Bold(new Run(title));
+            tb.Inlines.Add(bold);
+
+            StackPanel stackPnl = new StackPanel();
+            stackPnl.Orientation = Orientation.Horizontal;
+            stackPnl.Margin = new Thickness(10);
+            stackPnl.Children.Add(tb);
+            stackPnl.Children.Add(img);
+
             Button button = new Button();
-            button.Content = title;
+            button.Content = stackPnl;
             button.Click += Card_Click;
 
             // Set in FlipCard method
-            if(!flipped)
-                button.Background = frontBackground;
-            else
-                button.Background = backBackground;
+            //if(!flipped)
+               // button.Background = frontBackground;
+            //else
+               // button.Background = backBackground;
 
             Grid.SetColumn(button, column);
             Grid.SetRow(button, row);
@@ -125,7 +140,7 @@ namespace Memory.Views
             }
         }
 
-        private void AddCard(int id, int column, int row, string title, bool flipped, Brush frontBackground, Brush backBackground)
+        private void AddCard(int id, int column, int row, string title, bool flipped, string frontBackground, Brush backBackground)
         {
             cards.Add(new Card(id, column, row, title, flipped, frontBackground, backBackground));
         }
@@ -145,14 +160,15 @@ namespace Memory.Views
         {
             for(int i = 0; i < GetGridSize() / 2; i++)
             {
-                backgrounds.Add(new Background(i, GetRandomColor(i)));
+                backgrounds.Add(new Background(i, GetRandomColor(i), "Pictures/catharina/00fool.jpg"));
             }
         }
 
         private void AddCards()
         {
             int id = 1;
-            Brush cbg = new SolidColorBrush(Colors.Red);
+            //Brush cbg = new SolidColorBrush(Colors.Red);
+            string frontBg = "";
 
             foreach(var pos in positions)
             {
@@ -162,7 +178,7 @@ namespace Memory.Views
                 foreach(var bg in backgrounds)
                 {
                     if(id == bg.Id)
-                        cbg = bg.Color;
+                        frontBg = bg.Picture;
                 }
 
                  AddCard(
@@ -171,7 +187,7 @@ namespace Memory.Views
                     pos.Y, 
                     $"Card {id} [{pos.X} - {pos.Y}] ({positions.Count})", 
                     false, 
-                    cbg,     
+                    frontBg,     
                     Brushes.Red
                 );
 
@@ -254,7 +270,7 @@ namespace Memory.Views
 
         private void Card_Click(object sender, RoutedEventArgs e)
         {
-            this.Title = (e.Source as Button).Content.ToString();
+            Button button = (Button)sender;
         }
     }
 }
