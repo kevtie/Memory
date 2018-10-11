@@ -38,23 +38,48 @@ namespace Memory.Views
         }
     }
 
-    /// <summary>
-    /// Interaction logic for GameView.xaml
-    /// </summary>
     public partial class GameView : Window
     {
-        private static int rows = 4;
-        private static int columns = 4;
+        private const int FIRST_GAME_GRID_ROWS = 4;
+        private const int FIRST_GAME_GRID_COLUMNS = 4;
+
+        private const int SECOND_GAME_GRID_COLUMNS = 6;
+        private const int SECOND_GAME_GRID_ROWS = 6;
+
+        private int currentGameGridRows = FIRST_GAME_GRID_ROWS;
+        private int currentGameGridColumns = FIRST_GAME_GRID_COLUMNS;
 
         private List<Card> cards = new List<Card>();
-
-        private int[] filledColumns = new int[columns * rows];
-        private int[] filledRows = new int[columns * rows];
 
         public GameView()
         {
             InitializeComponent();
-            CreateGrid(columns, rows);
+            InitializeGameGrid(FIRST_GAME_GRID_ROWS, FIRST_GAME_GRID_COLUMNS);
+        }
+
+        private int GetGridSize()
+        {
+            return currentGameGridColumns * currentGameGridRows;
+        }
+
+        private void SetGridSize(int cols, int rows)
+        {
+            currentGameGridRows = rows;
+            currentGameGridColumns = cols;
+        }
+
+        private void ShuffleCards()
+        {
+            Random rng = new Random();
+
+            int n = cards.Count;  
+            while (n > 1) {  
+                n--;  
+                int k = rng.Next(n + 1);  
+                Card card = cards[k];
+                cards[k] = cards[n];  
+                cards[n] = card;  
+            }  
         }
 
         private void SetCard(int id, string title, int column, int row, bool flipped, Brush frontBackground, Brush backBackground)
@@ -83,23 +108,20 @@ namespace Memory.Views
 
         private void AddCard(int id, int column, int row, string title, bool flipped, Brush frontBackground, Brush backBackground)
         {
-            cards.Add(new Card(id, CheckFilled(filledColumns, GetRandomNumber(column)), CheckFilled(filledRows, GetRandomNumber(row)), title, flipped, frontBackground, backBackground));
-            cards.Add(new Card(id, CheckFilled(filledColumns, GetRandomNumber(column)), CheckFilled(filledRows, GetRandomNumber(row)), title, flipped, frontBackground, backBackground));
+            cards.Add(new Card(id, column, row, title, flipped, frontBackground, backBackground));
+            cards.Add(new Card(id, column, row, title, flipped, frontBackground, backBackground));
         }
 
-        private void AddCards(int columns, int rows)
+        private void AddCards(int cols, int rows)
         {
             int id = 1;
 
-            for(int x = 0; x < columns; x++)
+            for(int x = 0; x < cols; x++)
             {
                 for(int y = 0; y < rows; y++) 
                 {
-                    if(id > (columns * rows / 2))
+                    if(id > (cols * rows / 2))
                         id = 1;
-
-                    filledColumns[id] = x;
-                    filledRows[id] = y;
 
                     AddCard(
                         id, 
@@ -114,16 +136,6 @@ namespace Memory.Views
                     id++;
                 }
             }
-        }
-
-        private int CheckFilled(int[] filled, int target)
-        {
-            // Make recursive
-            // Set random number until !filled.Contains(target)
-            if(filled.Contains(target))
-                return target;
-
-            return 0;
         }
 
         private SolidColorBrush GetRandomColor(int seed)
@@ -143,42 +155,30 @@ namespace Memory.Views
             return new Random().Next(min, max);
         }
 
-
         private void ClearGrid()
         {
+            cards.Clear();
             Grid.RowDefinitions.Clear();
             Grid.ColumnDefinitions.Clear();
         }
 
-        private void CreateGrid(int columns, int rows)
+        private void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
-            AddCards(columns, rows);
+            SetGridSize(cols, rows);
+            AddCards(cols, rows);
+            ShuffleCards();
             SetCards();
 
-            for (int i = 0; i < columns; i++)
+            for (int i = 0; i < cols; i++)
             {
-                Grid.ColumnDefinitions.Add(SetColumnDetails(new ColumnDefinition()));
+                Grid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
             for (int i = 0; i < rows; i++)
             {
-                Grid.RowDefinitions.Add(SetRowDetails(new RowDefinition()));
+                Grid.RowDefinitions.Add(new RowDefinition());
             }
-        }
-
-        private ColumnDefinition SetColumnDetails(ColumnDefinition column)
-        {
-            column.Width = new GridLength(30, GridUnitType.Star);
-
-            return column;
-        }
-
-        private RowDefinition SetRowDetails(RowDefinition row)
-        {
-            row.Height = new GridLength(50, GridUnitType.Star);
-
-            return row;
         }
 
         private void GridOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -192,22 +192,20 @@ namespace Memory.Views
             switch (GridOptions.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
             {
                 case "4x4":
-                    Background = new SolidColorBrush(Colors.Blue);
-                    cards.Clear();
-                    CreateGrid(4, 4);
+                    InitializeGameGrid(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
                     break;
                 case "6x6":
-                    Background = new SolidColorBrush(Colors.Red);
-                    cards.Clear();
-                    CreateGrid(6, 6);
+                    InitializeGameGrid(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
+                    break;
+                default:
+                    InitializeGameGrid(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
                     break;
             }
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            cards.Clear();
-            CreateGrid(rows, columns);
+            InitializeGameGrid(currentGameGridColumns, currentGameGridRows);
         }
 
         private void Card_Click(object sender, RoutedEventArgs e)

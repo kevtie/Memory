@@ -8,7 +8,7 @@
         Title="GameView" Height="350" Width="500">
     <DockPanel>
         <StackPanel Margin="10">
-			<Button x:Name="Shuffle" Click="Reset_Click" Content="Shuffle" />
+			<Button x:Name="Shuffle" Click="Reset_Click" Content="Reset" />
 			<ComboBox x:Name="GridOptions" 
                 SelectionChanged="GridOptions_SelectionChanged" 
                 DockPanel.Dock="Top">
