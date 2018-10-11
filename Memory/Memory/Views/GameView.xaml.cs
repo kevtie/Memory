@@ -141,7 +141,7 @@ namespace Memory.Views
                     id, 
                     pos.X,
                     pos.Y, 
-                    $"Card {id} [{pos.X} - {pos.Y}", 
+                    $"Card {id} [{pos.X} - {pos.Y}] ({positions.Count})", 
                     false, 
                     Brushes.White,     
                     Brushes.Red
@@ -170,6 +170,7 @@ namespace Memory.Views
 
         private void ClearGrid()
         {
+            positions.Clear();
             cards.Clear();
             Grid.RowDefinitions.Clear();
             Grid.ColumnDefinitions.Clear();
