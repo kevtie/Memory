@@ -104,8 +104,9 @@ namespace Memory.Views
 
         private void SetCard(int id, string title, int column, int row, bool flipped, string frontBackground, Brush backBackground)
         {
+
             Image img = new Image();
-            img.Source = new BitmapImage(new Uri("C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/catharina/00fool.jpg", UriKind.Absolute));
+            img.Source = new BitmapImage(new Uri(frontBackground, UriKind.Absolute));
 
             TextBlock tb = new TextBlock();
             var bold = new Bold(new Run(title));
@@ -158,9 +159,9 @@ namespace Memory.Views
 
         private void AddBackgrounds()
         {
-            for(int i = 0; i < GetGridSize() / 2; i++)
+            for(int i = 1; i <= GetGridSize() / 2; i++)
             {
-                backgrounds.Add(new Background(i, GetRandomColor(i), "Pictures/catharina/00fool.jpg"));
+                backgrounds.Add(new Background(i, GetRandomColor(i), $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/{i}.jpg"));
             }
         }
 
