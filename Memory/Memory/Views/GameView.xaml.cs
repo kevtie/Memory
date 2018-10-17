@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace Memory.Views
 {
@@ -24,9 +25,11 @@ namespace Memory.Views
         public int Column;
         public bool Flipped;
         public string FrontBackground;
-        public Brush BackBackground;
+        public string BackBackground;
 
-        public Card(int id, int column, int row, string title, bool flipped, string frontBackground, Brush backBackground)
+        // _flipped set Flipped to { get; set; }
+
+        public Card(int id, int column, int row, string title, bool flipped, string frontBackground, string backBackground)
         {
             Id = id;
             Title = title;
@@ -53,14 +56,14 @@ namespace Memory.Views
     public class Background
     {
         public int Id;
-        public SolidColorBrush Color;
-        public string Picture;
+        public string Front;
+        public string Back;
 
-        public Background(int id, SolidColorBrush color, string picture)
+        public Background(int id, string back, string front)
         {
             Id = id;
-            Color = color;
-            Picture = picture;
+            Front = front;
+            Back = back;
         }
     }
 
@@ -72,12 +75,15 @@ namespace Memory.Views
         private const int SECOND_GAME_GRID_COLUMNS = 6;
         private const int SECOND_GAME_GRID_ROWS = 6;
 
+        private bool cardsFlipped = false;
+
         private int currentGameGridRows = FIRST_GAME_GRID_ROWS;
         private int currentGameGridColumns = FIRST_GAME_GRID_COLUMNS;
 
         private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
         private List<Background> backgrounds = new List<Background>();
+        private List<Card> activeCards = new List<Card>();
 
         public GameView()
         {
@@ -102,11 +108,12 @@ namespace Memory.Views
             positions = positions.OrderBy(x => rng.Next()).ToList();
         }
 
-        private void SetCard(int id, string title, int column, int row, bool flipped, string frontBackground, Brush backBackground)
+        private void SetCard(int id, string title, int column, int row, bool flipped, string frontBackground, string backBackground)
         {
 
-            Image img = new Image();
-            img.Source = new BitmapImage(new Uri(frontBackground, UriKind.Absolute));
+            Image image = new Image();
+
+            image.Source = SetCardState(flipped, frontBackground, backBackground);
 
             TextBlock tb = new TextBlock();
             var bold = new Bold(new Run(title));
@@ -115,22 +122,25 @@ namespace Memory.Views
             StackPanel stackPnl = new StackPanel();
             stackPnl.Orientation = Orientation.Horizontal;
             stackPnl.Margin = new Thickness(10);
+            stackPnl.Name = "c" + id.ToString();
             stackPnl.Children.Add(tb);
-            stackPnl.Children.Add(img);
+            stackPnl.Children.Add(image);
 
             Button button = new Button();
             button.Content = stackPnl;
             button.Click += Card_Click;
 
-            // Set in FlipCard method
-            //if(!flipped)
-               // button.Background = frontBackground;
-            //else
-               // button.Background = backBackground;
-
             Grid.SetColumn(button, column);
             Grid.SetRow(button, row);
             Grid.Children.Add(button);
+        }
+
+        private ImageSource SetCardState(bool flipped, string frontBackground, string backBackground)
+        {
+            if(flipped)
+                return new BitmapImage(new Uri(frontBackground, UriKind.Absolute));
+
+            return new BitmapImage(new Uri(backBackground, UriKind.Absolute));
         }
 
         private void SetCards()
@@ -141,7 +151,7 @@ namespace Memory.Views
             }
         }
 
-        private void AddCard(int id, int column, int row, string title, bool flipped, string frontBackground, Brush backBackground)
+        private void AddCard(int id, int column, int row, string title, bool flipped, string frontBackground, string backBackground)
         {
             cards.Add(new Card(id, column, row, title, flipped, frontBackground, backBackground));
         }
@@ -161,7 +171,7 @@ namespace Memory.Views
         {
             for(int i = 1; i <= GetGridSize() / 2; i++)
             {
-                backgrounds.Add(new Background(i, GetRandomColor(i), $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/{i}.jpg"));
+                backgrounds.Add(new Background(i, $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/card_back.jpg", $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/{i}.jpg"));
             }
         }
 
@@ -170,6 +180,7 @@ namespace Memory.Views
             int id = 1;
             //Brush cbg = new SolidColorBrush(Colors.Red);
             string frontBg = "";
+            string backBg = "";
 
             foreach(var pos in positions)
             {
@@ -178,8 +189,11 @@ namespace Memory.Views
 
                 foreach(var bg in backgrounds)
                 {
-                    if(id == bg.Id)
-                        frontBg = bg.Picture;
+                    if(id == bg.Id) 
+                    {
+                        frontBg = bg.Front;
+                        backBg = bg.Back;
+                    }
                 }
 
                  AddCard(
@@ -187,9 +201,9 @@ namespace Memory.Views
                     pos.X,
                     pos.Y, 
                     $"Card {id} [{pos.X} - {pos.Y}] ({positions.Count})", 
-                    false, 
+                    cardsFlipped, 
                     frontBg,     
-                    Brushes.Red
+                    backBg
                 );
 
                 id++;
@@ -219,6 +233,46 @@ namespace Memory.Views
             cards.Clear();
             Grid.RowDefinitions.Clear();
             Grid.ColumnDefinitions.Clear();
+        }
+
+        private void SetActiveCard(Card card)
+        {
+            if(activeCards.Count >= 2)
+                activeCards.Clear();
+            else 
+                activeCards.Add(card);
+        }
+
+        private void CompareCards()
+        {
+            if(activeCards.Count >= 2)
+            {
+                List<int> cardIds = new List<int>();
+
+                foreach(var card in activeCards)
+                {
+                    cardIds.Add(card.Id);
+                }
+            }
+            else 
+            {
+                // Get first activeCard card for selection return
+                // Cannot compare less than 1 card or more than 2 cards
+                // Show what the player selected as one card
+            }
+
+            // If give point to player and extra turn
+            // Else give next player turn without points
+        }
+
+        private void FlipCard(Card card)
+        {
+            if(!card.Flipped)
+                card.Flipped = true;
+            else
+                card.Flipped = false;
+
+            SetActiveCard(card);
         }
 
         private void InitializeGameGrid(int cols, int rows)
@@ -272,6 +326,19 @@ namespace Memory.Views
         private void Card_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
+            StackPanel stackPanel = (StackPanel)button.Content;
+
+            int id = Convert.ToInt32(stackPanel.Name.Remove(0, 1));
+
+            foreach(var card in cards)
+            {
+                if(card.Id == id)
+                {
+                    this.Title = card.Flipped.ToString();
+                    //FlipCard(card);
+                    //CompareCards();
+                }
+            }
         }
     }
 }
