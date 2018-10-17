@@ -21,6 +21,7 @@ namespace Memory.Views
     {
         public int Id;
         public int DuplicateId;
+        public bool Active;
         public string Title;
         public int Row;
         public int Column;
@@ -30,10 +31,11 @@ namespace Memory.Views
 
         // _flipped set Flipped to { get; set; }
 
-        public Card(int id, int duplicateId, int column, int row, string title, bool flipped, string frontBackground, string backBackground)
+        public Card(int id, int duplicateId, bool active, int column, int row, string title, bool flipped, string frontBackground, string backBackground)
         {
             Id = id;
             DuplicateId = duplicateId;
+            Active = active;
             Title = title;
             Row = row;
             Column = column;
@@ -85,7 +87,6 @@ namespace Memory.Views
         private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
         private List<Background> backgrounds = new List<Background>();
-        private List<Card> activeCards = new List<Card>();
 
         public GameView()
         {
@@ -110,7 +111,7 @@ namespace Memory.Views
             positions = positions.OrderBy(x => rng.Next()).ToList();
         }
 
-        private void SetCard(int id, int duplicateId, string title, int column, int row, bool flipped, string frontBackground, string backBackground)
+        private void SetCard(int id, int duplicateId, bool active, string title, int column, int row, bool flipped, string frontBackground, string backBackground)
         {
 
             Image image = new Image();
@@ -149,13 +150,13 @@ namespace Memory.Views
         {
             foreach(var card in cards)
             {
-                SetCard(card.Id, card.DuplicateId, card.Title, card.Column, card.Row, card.Flipped, card.FrontBackground, card.BackBackground); 
+                SetCard(card.Id, card.DuplicateId, card.Active, card.Title, card.Column, card.Row, card.Flipped, card.FrontBackground, card.BackBackground); 
             }
         }
 
-        private void AddCard(int id, int duplicateId, int column, int row, string title, bool flipped, string frontBackground, string backBackground)
+        private void AddCard(int id, int duplicateId, bool active, int column, int row, string title, bool flipped, string frontBackground, string backBackground)
         {
-            cards.Add(new Card(id, duplicateId, column, row, title, flipped, frontBackground, backBackground));
+            cards.Add(new Card(id, duplicateId, active, column, row, title, flipped, frontBackground, backBackground));
         }
 
         private void AddPositions(int cols, int rows)
@@ -202,6 +203,7 @@ namespace Memory.Views
                  AddCard(
                     id, 
                     duplicateId,
+                    CARDS_START_STATE_FLIPPED,
                     pos.X,
                     pos.Y, 
                     $"Card {duplicateId} [{pos.X} - {pos.Y}] ({positions.Count})", 
@@ -240,37 +242,18 @@ namespace Memory.Views
             Grid.ColumnDefinitions.Clear();
         }
 
-        private void CompareCards()
-        {
-            if(activeCards.Count >= 2)
-            {
-                List<int> cardIds = new List<int>();
-
-                foreach(var card in activeCards)
-                {
-                    cardIds.Add(card.Id);
-                }
-            }
-            else 
-            {
-                // Get first activeCard card for selection return
-                // Cannot compare less than 1 card or more than 2 cards
-                // Show what the player selected as one card
-            }
-
-            // If give point to player and extra turn
-            // Else give next player turn without points
-        }
-
-        private bool FlipCard(Card card)
+        private void FlipCard(Card card)
         {
             if(!card.Flipped) 
             {
-                SetActiveCard(card);
-                return true;
+                card.Flipped = true;
+            }
+            else 
+            {
+                card.Flipped = false;
             }
 
-            return false;
+            SetActiveCard(card, card.Flipped);
         }
 
         private void InitializeGameGrid(int cols, int rows)
@@ -339,18 +322,48 @@ namespace Memory.Views
 
             Card card = GetCardById(id);
 
-            this.Title = card.Title.ToString();
+            FlipCard(card);
 
-            card.Flipped = FlipCard(card);
-
-            SetActiveCard(card);
+            this.Title = CompareCards();
 
             SetCards();
         }
 
-        private void SetActiveCard(Card card)
+        private List<Card> GetActiveCards()
         {
-            Card card2 = card;
+            // Add c.Active instead of Flipped, because else get all flipped cards instead of active cards
+            return cards.Where(c => c.Active == true).ToList();
+        }
+
+        private string CompareCards()
+        {
+            List<Card> activeCards = GetActiveCards();
+
+            //Set to c.Active and reset ActiveCards every Count == 2
+            if(activeCards.Count == 2)
+            {
+                Card card1 = activeCards.ElementAt(0);
+                Card card2 = activeCards.ElementAt(1);
+
+                if(card1.DuplicateId == card2.DuplicateId)
+                {
+                    SetActiveCard(card1, false);
+                    SetActiveCard(card2, false);
+                    return $"MATCH! total:{activeCards.Count}";
+                }
+
+                FlipCard(card1);
+                FlipCard(card2);
+
+                return $"NO MATCH! total:{activeCards.Count}";
+            }
+
+            return "Alright find the same one!";
+        }
+
+        private void SetActiveCard(Card card, bool active)
+        {
+            card.Active = active;
             cards.Remove(card);
             cards.Add(card);
         }
