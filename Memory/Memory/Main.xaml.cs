@@ -27,6 +27,7 @@ namespace Memory
 
         private void Button_Clicknew(object sender, RoutedEventArgs e)
         {
+            //if less than 2 players else SECOND etc.
             MainFrame.Content = new Game();
         }
 

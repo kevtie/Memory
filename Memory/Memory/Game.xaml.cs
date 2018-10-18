@@ -72,36 +72,56 @@ namespace Memory
 
     public partial class Game : Page
     {
+        private const bool CARDS_START_STATE_FLIPPED = false;
+
         private const int FIRST_GAME_GRID_ROWS = 4;
         private const int FIRST_GAME_GRID_COLUMNS = 4;
 
         private const int SECOND_GAME_GRID_COLUMNS = 6;
         private const int SECOND_GAME_GRID_ROWS = 6;
 
-        private const bool CARDS_START_STATE_FLIPPED = false;
-
-        private int currentGameGridRows = FIRST_GAME_GRID_ROWS;
-        private int currentGameGridColumns = FIRST_GAME_GRID_COLUMNS;
-
         private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
         private List<Background> backgrounds = new List<Background>();
 
+        public int currentGameColumns = FIRST_GAME_GRID_ROWS;
+        public int currentGameRows = FIRST_GAME_GRID_ROWS;
+
         public Game()
         {
+            //Set if multiple players
             InitializeComponent();
-            InitializeGameGrid(FIRST_GAME_GRID_ROWS, FIRST_GAME_GRID_COLUMNS);
+            InitializeGameGrid(currentGameColumns, currentGameRows);
         }
 
-        private int GetGridSize()
+        private void HandleGameGridOptions()
         {
-            return currentGameGridColumns * currentGameGridRows;
+            switch (GameGridOptions.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
+            {
+                case "4x4":
+                    InitializeGameGrid(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
+                break;
+                case "6x6":
+                    InitializeGameGrid(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
+                break;
+            }
+        }
+
+        private void GameGridOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Invisible if not new Game
+            HandleGameGridOptions();
         }
 
         private void SetGridSize(int cols, int rows)
         {
-            currentGameGridRows = rows;
-            currentGameGridColumns = cols;
+            currentGameColumns = cols;
+            currentGameRows = rows;
+        }
+
+        private int GetGridSize()
+        {
+            return currentGameColumns * currentGameRows;
         }
 
         private void RandomizePositions()
@@ -134,15 +154,15 @@ namespace Memory
 
             Grid.SetColumn(button, column);
             Grid.SetRow(button, row);
-            Grid.Children.Add(button);
+            GameGrid.Children.Add(button);
         }
 
         private ImageSource SetCardState(bool flipped, string frontBackground, string backBackground)
         {
             if(flipped)
-                return new BitmapImage(new Uri(frontBackground, UriKind.Absolute));
+                return new BitmapImage(new Uri(frontBackground, UriKind.Relative));
 
-            return new BitmapImage(new Uri(backBackground, UriKind.Absolute));
+            return new BitmapImage(new Uri(backBackground, UriKind.Relative));
         }
 
         private void SetCards()
@@ -173,7 +193,7 @@ namespace Memory
         {
             for(int i = 1; i <= GetGridSize() / 2; i++)
             {
-                backgrounds.Add(new Background(i, $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/card_back.jpg", $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/{i}.jpg"));
+                backgrounds.Add(new Background(i, "Resources/card_back.jpg", $"Resources/{i}.jpg"));
             }
         }
 
@@ -237,8 +257,8 @@ namespace Memory
         {
             positions.Clear();
             cards.Clear();
-            Grid.RowDefinitions.Clear();
-            Grid.ColumnDefinitions.Clear();
+            GameGrid.RowDefinitions.Clear();
+            GameGrid.ColumnDefinitions.Clear();
         }
 
         private void FlipCard(Card card)
@@ -255,7 +275,7 @@ namespace Memory
             SetActiveCard(card, card.Flipped);
         }
 
-        private void InitializeGameGrid(int cols, int rows)
+        public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
             SetGridSize(cols, rows);
@@ -271,36 +291,15 @@ namespace Memory
         {
              for (int i = 0; i < cols; i++)
              {
-                Grid.ColumnDefinitions.Add(new ColumnDefinition());
+                GameGrid.ColumnDefinitions.Add(new ColumnDefinition());
              }
 
             for (int i = 0; i < rows; i++)
             {
-                Grid.RowDefinitions.Add(new RowDefinition());
+                GameGrid.RowDefinitions.Add(new RowDefinition());
             }
         }
 
-        private void GridOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmb = sender as ComboBox;
-            HandleGridOptions();
-        }
-
-        private void HandleGridOptions()
-        {
-            switch (GridOptions.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
-            {
-                case "4x4":
-                    InitializeGameGrid(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
-                    break;
-                case "6x6":
-                    InitializeGameGrid(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
-                    break;
-                default:
-                    InitializeGameGrid(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
-                    break;
-            }
-        }
 
         private Card GetCardById(int id)
         {
@@ -309,7 +308,7 @@ namespace Memory
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            InitializeGameGrid(currentGameGridColumns, currentGameGridRows);
+            InitializeGameGrid(currentGameColumns, currentGameRows);
         }
 
         private void Card_Click(object sender, RoutedEventArgs e)
@@ -331,7 +330,7 @@ namespace Memory
 
             if (GetFlippedCards().Count == cards.Count)
             {
-                InitializeGameGrid(currentGameGridColumns, currentGameGridRows);
+                InitializeGameGrid(currentGameColumns, currentGameRows);
             }
         }
 

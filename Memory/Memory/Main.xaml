@@ -8,7 +8,7 @@
         Title="Memory Game Start" Height="450" Width="800" WindowState="Maximized">
     <Grid x:Name="MainGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\boele\source\repos\Memory2\Memory\Memory\Resources\TarotCards.png" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="Resources/background.png" Stretch="UniformToFill"/>
         </Grid.Background>
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
             <Button MinWidth="100" Margin="00,0,0,0" Click="Button_Clicknew">new</Button>
