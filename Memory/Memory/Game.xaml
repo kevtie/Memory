@@ -1,11 +1,11 @@
-﻿<Window x:Class="Memory.Views.GameView"
+﻿<Window x:Class="Memory.Game"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Memory"
         mc:Ignorable="d"
-        Title="GameView" Height="350" Width="500" WindowState="Maximized">
+        Title="Memory Game" Height="350" Width="500" WindowState="Maximized">
     <DockPanel>
         <StackPanel Margin="10">
 			    <Button x:Name="Shuffle" Click="Reset_Click" Content="Reset" />

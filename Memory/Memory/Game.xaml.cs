@@ -70,7 +70,7 @@ namespace Memory
         }
     }
 
-    public partial class GameView : Window
+    public partial class Game : Window
     {
         private const int FIRST_GAME_GRID_ROWS = 4;
         private const int FIRST_GAME_GRID_COLUMNS = 4;
@@ -87,7 +87,7 @@ namespace Memory
         private List<Card> cards = new List<Card>();
         private List<Background> backgrounds = new List<Background>();
 
-        public GameView()
+        public Game()
         {
             InitializeComponent();
             InitializeGameGrid(FIRST_GAME_GRID_ROWS, FIRST_GAME_GRID_COLUMNS);
