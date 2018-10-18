@@ -322,11 +322,17 @@ namespace Memory
 
             Card card = GetCardById(id);
 
-            FlipCard(card);
+            if(!card.Flipped)
+            {
+                FlipCard(card);
+                CompareCards();
+                SetCards();
+            }
 
-            page.WindowTitle = CompareCards();
-
-            SetCards();
+            if (GetFlippedCards().Count == cards.Count)
+            {
+                InitializeGameGrid(currentGameGridColumns, currentGameGridRows);
+            }
         }
 
         private List<Card> GetActiveCards()
@@ -334,11 +340,16 @@ namespace Memory
             return cards.Where(c => c.Active == true).ToList();
         }
 
-        private string CompareCards()
+        private List<Card> GetFlippedCards()
+        {
+            return cards.Where(c => c.Flipped == true).ToList();
+        }
+
+        private void CompareCards()
         {
             List<Card> activeCards = GetActiveCards();
 
-            if(activeCards.Count == 2)
+            if(activeCards.Count > 2)
             {
                 Card card1 = activeCards.ElementAt(0);
                 Card card2 = activeCards.ElementAt(1);
@@ -347,16 +358,13 @@ namespace Memory
                 {
                     SetActiveCard(card1, false);
                     SetActiveCard(card2, false);
-                    return $"MATCH! total:{activeCards.Count}";
                 }
-
-                FlipCard(card1);
-                FlipCard(card2);
-
-                return $"NO MATCH! total:{activeCards.Count}";
+                else
+                {
+                    FlipCard(card1);
+                    FlipCard(card2);
+                }
             }
-
-            return "Alright find the same one!";
         }
 
         private void SetActiveCard(Card card, bool active)
