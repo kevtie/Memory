@@ -70,7 +70,7 @@ namespace Memory
         }
     }
 
-    public partial class Game : Window
+    public partial class Game : Page
     {
         private const int FIRST_GAME_GRID_ROWS = 4;
         private const int FIRST_GAME_GRID_COLUMNS = 4;
