@@ -1,0 +1,15 @@
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\bin\Debug\Wpfdemo2.exe.config
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\bin\Debug\Wpfdemo2.exe
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\bin\Debug\Wpfdemo2.pdb
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2.csprojAssemblyReference.cache
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\MainWindow.g.cs
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\App.g.cs
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2_MarkupCompile.cache
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2_MarkupCompile.lref
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\MainWindow.baml
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2.g.resources
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2.Properties.Resources.resources
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2.csproj.GenerateResource.cache
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2.csproj.CoreCompileInputs.cache
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2.exe
+C:\Users\sthoo\source\repos\Wpfdemo2\Wpfdemo2\obj\Debug\Wpfdemo2.pdb
