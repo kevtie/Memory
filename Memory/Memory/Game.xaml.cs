@@ -314,6 +314,7 @@ namespace Memory
 
         private void Card_Click(object sender, RoutedEventArgs e)
         {
+            Page page = new Page();
             Button button = (Button)sender;
             StackPanel stackPanel = (StackPanel)button.Content;
 
@@ -323,7 +324,7 @@ namespace Memory
 
             FlipCard(card);
 
-            this.Title = CompareCards();
+            page.WindowTitle = CompareCards();
 
             SetCards();
         }

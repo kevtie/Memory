@@ -18,7 +18,7 @@ namespace Memory
     /// <summary>
     /// Interaction logic for load.xaml
     /// </summary>
-    public partial class load : Page
+    public partial class Load : Page
     {
         public Load()
         {

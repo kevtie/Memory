@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Memory"
         mc:Ignorable="d"
         Title="Memory Game Start" Height="450" Width="800" WindowState="Maximized">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\tim\source\repos\Memory\Memory\Memory v2\Resources\TarotCards.png" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="C:\Users\boele\source\repos\Memory2\Memory\Memory\Resources\TarotCards.png" Stretch="UniformToFill"/>
         </Grid.Background>
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
             <Button MinWidth="100" Margin="00,0,0,0" Click="Button_Clicknew">new</Button>
@@ -17,6 +17,6 @@
             <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickscore">Highscore</Button>
             <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickquit">Quit</Button>
         </StackPanel>
-        <Frame x:Name="Main" Margin="0,35,0,0" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window> 

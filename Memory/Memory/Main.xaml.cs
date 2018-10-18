@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace Memory
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Main : Window
+    public partial class Main : Window  
     {
         public Main()
         {
@@ -27,17 +27,17 @@ namespace Memory
 
         private void Button_Clicknew(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Content = new Game();
         }
 
         private void Button_Clickload(object sender, RoutedEventArgs e)
         {
-            Main.Content = new load();
+            MainFrame.Content = new Load();
         }
 
         private void Button_Clickhelp(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Help();
+            MainFrame.Content = new Help();
         }
 
         private void Button_Clickscore(object sender, RoutedEventArgs e)
@@ -49,7 +49,5 @@ namespace Memory
         {
             Close();
         }
-
-       
     }
 }
