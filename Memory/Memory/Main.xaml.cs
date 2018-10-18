@@ -24,30 +24,30 @@ namespace Memory
         {
             InitializeComponent();
         }
-
-        private void Button_Clicknew(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Game();
+            (sender as Button).ContextMenu.IsEnabled = true;
+            (sender as Button).ContextMenu.PlacementTarget = (sender as Button);
+            (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            (sender as Button).ContextMenu.IsOpen = true;
         }
 
-        private void Button_Clickload(object sender, RoutedEventArgs e)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Load();
+            System.Windows.MessageBox.Show("Test 1");
         }
 
-        private void Button_Clickhelp(object sender, RoutedEventArgs e)
+      
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Help();
+            this.Close();
         }
 
-        private void Button_Clickscore(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
-
+            Environment.Exit(1);
         }
 
-        private void Button_Clickquit(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+
     }
 }

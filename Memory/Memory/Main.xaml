@@ -7,15 +7,36 @@
         mc:Ignorable="d"
         Title="Memory Game Start" Height="450" Width="800" WindowState="Maximized">
     <Grid x:Name="MainGrid">
-        <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\boele\source\repos\Memory2\Memory\Memory\Resources\TarotCards.png" Stretch="UniformToFill"/>
-        </Grid.Background>
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="C:\Users\tim\source\repos\Memory2\Memory\Memory\Resources\TarotCards.png" Stretch="UniformToFill"/>
+        </Grid.Background>-->
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
-            <Button MinWidth="100" Margin="00,0,0,0" Click="Button_Clicknew">new</Button>
-            <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickload">load</Button>
-            <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickhelp">help</Button>
-            <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickscore">Highscore</Button>
-            <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickquit">Quit</Button>
+            <Button Content="game" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0,0,00,0">
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Save" Click="MenuItem_Click">
+                            <MenuItem.Icon>
+                                <Image Source="savebutton.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Load" Click="MenuItem_Click">
+                            <MenuItem.Icon>
+                                <Image Source="loadbutton.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="reset" Click="MenuItem_Click_2">
+                            <MenuItem.Icon>
+                                <Image Source="resetbutton.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="help" Click="MenuItem_Click_1"/>
+                        <Separator />
+                        <MenuItem Header="Terug naar hoofdmenu" Click="MenuItem_Click"/>
+                        <MenuItem Header="Afsluiten" Click="MenuItem_Click_3"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
+                <Image Source="optionbutton.png"></Image>
+            </Button>
         </StackPanel>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

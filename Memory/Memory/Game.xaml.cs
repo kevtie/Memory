@@ -173,7 +173,7 @@ namespace Memory
         {
             for(int i = 1; i <= GetGridSize() / 2; i++)
             {
-                backgrounds.Add(new Background(i, $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/card_back.jpg", $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/{i}.jpg"));
+                backgrounds.Add(new Background(i, $"C:/Users/tim/source/repos/Memory2/Memory/Memory/Pictures/card_back.jpg", $"C:/Users/boele/source/repos/Memory2/Memory/Memory/Pictures/{i}.jpg"));
             }
         }
 
