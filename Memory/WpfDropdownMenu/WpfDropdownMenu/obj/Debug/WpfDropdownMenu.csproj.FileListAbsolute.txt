@@ -1,0 +1,15 @@
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu.csprojAssemblyReference.cache
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\App.g.cs
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu_MarkupCompile.cache
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\MainWindow.g.cs
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu_MarkupCompile.lref
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\bin\Debug\WpfDropdownMenu.exe.config
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\bin\Debug\WpfDropdownMenu.exe
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\bin\Debug\WpfDropdownMenu.pdb
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\MainWindow.baml
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu.g.resources
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu.Properties.Resources.resources
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu.csproj.GenerateResource.cache
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu.csproj.CoreCompileInputs.cache
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu.exe
+C:\Users\liort\source\repos\WpfDropdownMenu\WpfDropdownMenu\obj\Debug\WpfDropdownMenu.pdb

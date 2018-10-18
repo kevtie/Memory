@@ -1,0 +1,15 @@
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\bin\Debug\HighScoreWpf.exe.config
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\bin\Debug\HighScoreWpf.exe
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\bin\Debug\HighScoreWpf.pdb
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf.csprojAssemblyReference.cache
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\MainWindow.g.cs
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\App.g.cs
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf_MarkupCompile.cache
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf_MarkupCompile.lref
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\MainWindow.baml
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf.g.resources
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf.Properties.Resources.resources
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf.csproj.GenerateResource.cache
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf.csproj.CoreCompileInputs.cache
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf.exe
+C:\Users\liort\source\repos\HighScoreWpf\HighScoreWpf\obj\Debug\HighScoreWpf.pdb
