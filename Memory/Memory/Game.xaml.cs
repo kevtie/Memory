@@ -1,5 +1,4 @@
-﻿using Memory.ViewModels;
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +14,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Memory.Views
+namespace Memory
 {
     public class Card 
     {
@@ -331,7 +330,6 @@ namespace Memory.Views
 
         private List<Card> GetActiveCards()
         {
-            // Add c.Active instead of Flipped, because else get all flipped cards instead of active cards
             return cards.Where(c => c.Active == true).ToList();
         }
 
@@ -339,7 +337,6 @@ namespace Memory.Views
         {
             List<Card> activeCards = GetActiveCards();
 
-            //Set to c.Active and reset ActiveCards every Count == 2
             if(activeCards.Count == 2)
             {
                 Card card1 = activeCards.ElementAt(0);
