@@ -16,6 +16,23 @@ using System.Text.RegularExpressions;
 
 namespace Memory
 {
+
+    public class Player
+    {
+        public int Id;
+        public bool Turn;
+        public int Score;
+        public string Name;
+
+        public Player(int id, bool turn, int score, string name)
+        {
+            Id = id;
+            Turn = turn;
+            Score = score;
+            Name = name;
+        }
+    }
+
     public class Card 
     {
         public int Id;
@@ -83,13 +100,16 @@ namespace Memory
         private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
         private List<Background> backgrounds = new List<Background>();
+        private List<Player> players = new List<Player>();
 
-        public int currentGameColumns = FIRST_GAME_GRID_ROWS;
-        public int currentGameRows = FIRST_GAME_GRID_ROWS;
+        private int currentGameColumns = FIRST_GAME_GRID_ROWS;
+        private int currentGameRows = FIRST_GAME_GRID_ROWS;
+
+        private bool DEBUG = false;
 
         public Game()
         {
-            //Set if multiple players
+            //Set to 6x6 if multiple players
             InitializeComponent();
             InitializeGameGrid(currentGameColumns, currentGameRows);
         }
@@ -109,7 +129,6 @@ namespace Memory
 
         private void GameGridOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Invisible if not new Game
             HandleGameGridOptions();
         }
 
@@ -137,16 +156,20 @@ namespace Memory
 
             image.Source = SetCardState(flipped, frontBackground, backBackground);
 
-            TextBlock tb = new TextBlock();
-            var bold = new Bold(new Run(title));
-            tb.Inlines.Add(bold);
-
             StackPanel stackPnl = new StackPanel();
             stackPnl.Orientation = Orientation.Horizontal;
             stackPnl.Margin = new Thickness(10);
             stackPnl.Name = "c" + id.ToString();
-            stackPnl.Children.Add(tb);
+
             stackPnl.Children.Add(image);
+
+            if (DEBUG)
+            {
+                TextBlock tb = new TextBlock();
+                var bold = new Bold(new Run(title));
+                tb.Inlines.Add(bold);
+                stackPnl.Children.Add(tb);
+            }
 
             Button button = new Button();
             button.Content = stackPnl;
