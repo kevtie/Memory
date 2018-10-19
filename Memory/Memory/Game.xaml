@@ -19,8 +19,7 @@
             </ComboBox>
         </StackPanel>
 
-        <Grid x:Name="GameGrid" 
-            ShowGridLines="True">
+        <Grid x:Name="GameGrid">
             <Grid.ColumnDefinitions />
             <Grid.RowDefinitions />
         </Grid>

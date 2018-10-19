@@ -11,11 +11,36 @@
             <ImageBrush ImageSource="Resources/background.png" Stretch="UniformToFill"/>
         </Grid.Background>
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
-            <Button MinWidth="100" Margin="00,0,0,0" Click="Button_Clicknew">new</Button>
-            <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickload">load</Button>
-            <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickhelp">help</Button>
-            <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickscore">Highscore</Button>
-            <Button MinWidth="100" Margin="10,0,0,0" Click="Button_Clickquit">Quit</Button>
+            <Button Click="Button_Click" Content="game" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0,0,00,0">
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="New" Click="Button_Clicknew">
+                            <!--<MenuItem.Icon>
+                                <Image Source="loadbutton.png"/>
+                            </MenuItem.Icon>-->
+                        </MenuItem>
+                        <MenuItem Header="Save" Click="Button_Clicksave">
+                            <!--<MenuItem.Icon>
+                                <Image Source="savebutton.png" />
+                            </MenuItem.Icon>-->
+                        </MenuItem>
+                        <MenuItem Header="Load" Click="Button_Clickload">
+                            <!--<MenuItem.Icon>
+                                <Image Source="loadbutton.png"/>
+                            </MenuItem.Icon>-->
+                        </MenuItem>
+                        <MenuItem Header="help" Click="Button_Clickhelp">
+                            <!--<MenuItem.Icon>
+                                <Image Source="resetbutton.png"/>
+                            </MenuItem.Icon>-->
+                        </MenuItem>
+                        <!--<MenuItem Header="help" Click="MenuItem_Click_1"/>-->
+                        <Separator />
+                        <MenuItem Header="Afsluiten" Click="Button_Clickquit"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
+                <!--<Image Source="optionbutton.png"></Image>-->
+            </Button>
         </StackPanel>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
 
 namespace Memory
 {
-
+    //Add in own Player file
     public class Player
     {
         public int Id;
@@ -33,6 +33,7 @@ namespace Memory
         }
     }
 
+    //Add in own Card file
     public class Card 
     {
         public int Id;
@@ -61,6 +62,7 @@ namespace Memory
         }
     }
 
+    //Add in own Position file
     public class Position
     {
         public int X;
@@ -73,6 +75,7 @@ namespace Memory
         }
     }
 
+    //Add in own Background file
     public class Background
     {
         public int Id;
@@ -155,29 +158,21 @@ namespace Memory
             Image image = new Image();
 
             image.Source = SetCardState(flipped, frontBackground, backBackground);
+            image.Margin = new Thickness(10);
+            image.Name = "c" + id.ToString();
+            image.MouseDown += new MouseButtonEventHandler(Card_Click);
 
-            StackPanel stackPnl = new StackPanel();
-            stackPnl.Orientation = Orientation.Horizontal;
-            stackPnl.Margin = new Thickness(10);
-            stackPnl.Name = "c" + id.ToString();
-
-            stackPnl.Children.Add(image);
 
             if (DEBUG)
             {
                 TextBlock tb = new TextBlock();
                 var bold = new Bold(new Run(title));
                 tb.Inlines.Add(bold);
-                stackPnl.Children.Add(tb);
             }
 
-            Button button = new Button();
-            button.Content = stackPnl;
-            button.Click += Card_Click;
-
-            Grid.SetColumn(button, column);
-            Grid.SetRow(button, row);
-            GameGrid.Children.Add(button);
+            Grid.SetColumn(image, column);
+            Grid.SetRow(image, row);
+            GameGrid.Children.Add(image);
         }
 
         private ImageSource SetCardState(bool flipped, string frontBackground, string backBackground)
@@ -334,13 +329,13 @@ namespace Memory
             InitializeGameGrid(currentGameColumns, currentGameRows);
         }
 
-        private void Card_Click(object sender, RoutedEventArgs e)
+        private void Card_Click(object sender, MouseButtonEventArgs e)
         {
             Page page = new Page();
-            Button button = (Button)sender;
-            StackPanel stackPanel = (StackPanel)button.Content;
+            Image image = (Image)sender;
+            //Image image = (Image)stackPnl.
 
-            int id = Convert.ToInt32(stackPanel.Name.Remove(0, 1));
+            int id = Convert.ToInt32(image.Name.Remove(0, 1));
 
             Card card = GetCardById(id);
 
