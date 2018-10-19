@@ -31,22 +31,29 @@ namespace Memory
             (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             (sender as Button).ContextMenu.IsOpen = true;
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_Clicksave(object sender, RoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show("Test 1");
+            
         }
 
-      
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        private void MenuItem_Clickload(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void MenuItem_Clickhelp(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new Help();
+        }
+
+        private void MenuItem_Clickquit(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
-        {
-            Environment.Exit(1);
-        }
+       
+
+      
 
 
     }

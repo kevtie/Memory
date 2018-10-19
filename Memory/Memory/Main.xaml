@@ -11,31 +11,30 @@
             <ImageBrush ImageSource="C:\Users\tim\source\repos\Memory2\Memory\Memory\Resources\TarotCards.png" Stretch="UniformToFill"/>
         </Grid.Background>-->
         <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
-            <Button Content="game" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0,0,00,0">
+            <Button Click="Button_Click" Content="game" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0,0,00,0">
                 <Button.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Save" Click="MenuItem_Click">
-                            <MenuItem.Icon>
+                        <MenuItem Header="Save" Click="MenuItem_Clicksave">
+                            <!--<MenuItem.Icon>
                                 <Image Source="savebutton.png" />
-                            </MenuItem.Icon>
+                            </MenuItem.Icon>-->
                         </MenuItem>
-                        <MenuItem Header="Load" Click="MenuItem_Click">
-                            <MenuItem.Icon>
+                        <MenuItem Header="Load" Click="MenuItem_Clickload">
+                            <!--<MenuItem.Icon>
                                 <Image Source="loadbutton.png"/>
-                            </MenuItem.Icon>
+                            </MenuItem.Icon>-->
                         </MenuItem>
-                        <MenuItem Header="reset" Click="MenuItem_Click_2">
-                            <MenuItem.Icon>
+                        <MenuItem Header="help" Click="MenuItem_Clickhelp">
+                            <!--<MenuItem.Icon>
                                 <Image Source="resetbutton.png"/>
-                            </MenuItem.Icon>
+                            </MenuItem.Icon>-->
                         </MenuItem>
-                        <MenuItem Header="help" Click="MenuItem_Click_1"/>
+                        <!--<MenuItem Header="help" Click="MenuItem_Click_1"/>-->
                         <Separator />
-                        <MenuItem Header="Terug naar hoofdmenu" Click="MenuItem_Click"/>
-                        <MenuItem Header="Afsluiten" Click="MenuItem_Click_3"/>
+                        <MenuItem Header="Afsluiten" Click="MenuItem_Clickquit"/>
                     </ContextMenu>
                 </Button.ContextMenu>
-                <Image Source="optionbutton.png"></Image>
+                <!--<Image Source="optionbutton.png"></Image>-->
             </Button>
         </StackPanel>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>

@@ -9,6 +9,6 @@
       Title="Help">
 
     <Grid>
-        <TextBlock Margin="30"  TextWrapping="Wrap" FontSize="34" VerticalAlignment="Top" Foreground="White" >Speel in de richting van de klok. Als je aan de beurt bent, draai je een kaartje naar keuze om. <LineBreak/> Daarna draai je een tweede kaartje om. <LineBreak/> Als de kaartjes gelijk zijn, dan pak je de  twee kaartjes van tafel en leg je ze naast je neer. <LineBreak/> Nu mag je nog een keer! Tot je twee kaartjes hebt omgedraaid die géén paar vormen.</TextBlock>
+        <TextBlock Margin="30"  TextWrapping="Wrap" FontSize="34" VerticalAlignment="Top" Foreground="Black" >Speel in de richting van de klok. Als je aan de beurt bent, draai je een kaartje naar keuze om. <LineBreak/> Daarna draai je een tweede kaartje om. <LineBreak/> Als de kaartjes gelijk zijn, dan pak je de  twee kaartjes van tafel en leg je ze naast je neer. <LineBreak/> Nu mag je nog een keer! Tot je twee kaartjes hebt omgedraaid die géén paar vormen.</TextBlock>
     </Grid>
 </Page>
