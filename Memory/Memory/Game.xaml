@@ -19,6 +19,9 @@
             </ComboBox>
         </StackPanel>
 
+        <StackPanel x:Name="GameBoard" Margin="10">
+        </StackPanel>
+
         <Grid x:Name="GameGrid">
             <Grid.ColumnDefinitions />
             <Grid.RowDefinitions />

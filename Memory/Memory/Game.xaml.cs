@@ -100,6 +100,12 @@ namespace Memory
         private const int SECOND_GAME_GRID_COLUMNS = 6;
         private const int SECOND_GAME_GRID_ROWS = 6;
 
+        private const int CARD_SCORE_VALUE = 50;
+
+        private const int START_PLAYER = 1;
+
+        private Player currentPlayer;
+
         private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
         private List<Background> backgrounds = new List<Background>();
@@ -110,11 +116,61 @@ namespace Memory
 
         private bool DEBUG = false;
 
+        private const int PLAYER_COUNT = 4;
+
         public Game()
         {
-            //Set to 6x6 if multiple players
             InitializeComponent();
+
+            if (PLAYER_COUNT > 1)
+                SetGridSize(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
+
             InitializeGameGrid(currentGameColumns, currentGameRows);
+            InitializeGameBoard();
+        }
+
+        private void InitializeGameBoard()
+        {
+            ClearGameBoard();
+            SetPlayers();
+        }
+
+        private void SetCurrentPlayer(Player player)
+        {
+            currentPlayer = player;
+        }
+
+        private void SetTurn(Player player, bool turn = true)
+        {
+            player.Turn = turn;
+            players.Remove(player);
+            players.Add(player);
+            SetCurrentPlayer(player);
+        }
+
+        private void SetScore(Player player, int score = CARD_SCORE_VALUE)
+        {
+            player.Score = player.Score + score;
+            players.Remove(player);
+            players.Add(player);
+        }
+
+        private void AddPlayers(int count = PLAYER_COUNT)
+        {
+            for(int i = 1; i < count + 1; i++)
+            {
+                players.Add(new Player(i, false, 0, $"Player {i}"));
+            }
+        }
+
+        private Player GetActivePlayer()
+        {
+            return players.Where(p => p.Turn == true).ToList().First();
+        }
+
+        private Player GetPlayerById(int id)
+        {
+            return players.Where(p => p.Id == id).ToList().First();
         }
 
         private void HandleGameGridOptions()
@@ -123,10 +179,12 @@ namespace Memory
             {
                 case "4x4":
                     InitializeGameGrid(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
-                break;
+                    InitializeGameBoard();
+                    break;
                 case "6x6":
                     InitializeGameGrid(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
-                break;
+                    InitializeGameBoard();
+                    break;
             }
         }
 
@@ -158,7 +216,7 @@ namespace Memory
             Image image = new Image();
 
             image.Source = SetCardState(flipped, frontBackground, backBackground);
-            image.Margin = new Thickness(10);
+            image.Margin = new Thickness(2);
             image.Name = "c" + id.ToString();
             image.MouseDown += new MouseButtonEventHandler(Card_Click);
 
@@ -275,8 +333,14 @@ namespace Memory
         {
             positions.Clear();
             cards.Clear();
+            players.Clear();
             GameGrid.RowDefinitions.Clear();
             GameGrid.ColumnDefinitions.Clear();
+        }
+
+        private void ClearGameBoard()
+        {
+            GameBoard.Children.Clear();
         }
 
         private void FlipCard(Card card)
@@ -296,6 +360,7 @@ namespace Memory
         public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
+            AddPlayers();
             SetGridSize(cols, rows);
             AddPositions(cols, rows);
             AddBackgrounds();
@@ -303,6 +368,7 @@ namespace Memory
             AddCards();
             SetCards();
             CreateGrid(cols, rows);
+            SetTurn(GetPlayerById(START_PLAYER));
         }
 
         private void CreateGrid(int cols, int rows)
@@ -318,6 +384,27 @@ namespace Memory
             }
         }
 
+        private void SetPlayers(int count = PLAYER_COUNT)
+        {
+            SolidColorBrush foreground = new SolidColorBrush(Colors.Red);
+
+            foreach(var player in players)
+            {
+                if (player.Turn)
+                    foreground = new SolidColorBrush(Colors.Green);
+
+                GameBoard.Children.Add(
+                    new TextBlock
+                    {
+                        Text = $"Player {player.Id}: Score: {player.Score}: Turn: {player.Turn}",
+                        Margin = new Thickness(2),
+                        Foreground = foreground,
+                        FontSize = 20,
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    }
+                );
+            }
+        }
 
         private Card GetCardById(int id)
         {
@@ -327,13 +414,13 @@ namespace Memory
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             InitializeGameGrid(currentGameColumns, currentGameRows);
+            InitializeGameBoard();
         }
 
         private void Card_Click(object sender, MouseButtonEventArgs e)
         {
             Page page = new Page();
             Image image = (Image)sender;
-            //Image image = (Image)stackPnl.
 
             int id = Convert.ToInt32(image.Name.Remove(0, 1));
 
@@ -375,12 +462,22 @@ namespace Memory
                 {
                     SetActiveCard(card1, false);
                     SetActiveCard(card2, false);
+                    SetScore(GetActivePlayer());
+                    SetTurn(currentPlayer);
                 }
                 else
                 {
                     FlipCard(card1);
                     FlipCard(card2);
+                    SetTurn(currentPlayer, false);
+
+                    if(currentPlayer.Id >= players.Count)
+                        SetTurn(GetPlayerById(START_PLAYER));
+                    else
+                        SetTurn(GetPlayerById(currentPlayer.Id + 1));
                 }
+
+                InitializeGameBoard();
             }
         }
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -34,7 +34,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Resource Include="Resources\**\*.*" />
+    <Resource Include="Resources\1.jpg" />
+    <Resource Include="Resources\10.jpg" />
+    <Resource Include="Resources\11.jpg" />
+    <Resource Include="Resources\12.jpg" />
+    <Resource Include="Resources\13.jpg" />
+    <Resource Include="Resources\14.jpg" />
+    <Resource Include="Resources\15.jpg" />
+    <Resource Include="Resources\16.jpg" />
+    <Resource Include="Resources\17.jpg" />
+    <Resource Include="Resources\18.jpg" />
+    <Resource Include="Resources\19.jpg" />
+    <Resource Include="Resources\2.jpg" />
+    <Resource Include="Resources\20.jpg" />
+    <Resource Include="Resources\21.jpg" />
+    <Resource Include="Resources\22.jpg" />
+    <Resource Include="Resources\3.jpg" />
+    <Resource Include="Resources\4.jpg" />
+    <Resource Include="Resources\5.jpg" />
+    <Resource Include="Resources\6.jpg" />
+    <Resource Include="Resources\7.jpg" />
+    <Resource Include="Resources\8.jpg" />
+    <Resource Include="Resources\9.jpg" />
+    <Resource Include="Resources\background.png" />
+    <Resource Include="Resources\card_back.jpg" />
+    <Resource Include="Resources\copyright.txt" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -117,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
