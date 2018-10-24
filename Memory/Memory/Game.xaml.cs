@@ -192,7 +192,7 @@ namespace Memory
         {
             HandleGameGridOptions();
         }
-
+            
         private void SetGridSize(int cols, int rows)
         {
             currentGameColumns = cols;

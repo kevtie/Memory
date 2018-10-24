@@ -59,6 +59,10 @@
     <Resource Include="Resources\background.png" />
     <Resource Include="Resources\card_back.jpg" />
     <Resource Include="Resources\copyright.txt" />
+    <Resource Include="Resources\loadbutton.jpg" />
+    <Resource Include="Resources\optionbutton.png" />
+    <Resource Include="Resources\resetbutton.png" />
+    <Resource Include="Resources\savebutton.png" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

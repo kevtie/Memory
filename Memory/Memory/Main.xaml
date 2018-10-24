@@ -15,31 +15,30 @@
                 <Button.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="New" Click="Button_Clicknew">
-                            <!--<MenuItem.Icon>
-                                <Image Source="loadbutton.png"/>
-                            </MenuItem.Icon>-->
+                            <MenuItem.Icon>
+                                <Image Source="Resources/optionbutton.png"/>
+                            </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="Save" Click="Button_Clicksave">
-                            <!--<MenuItem.Icon>
-                                <Image Source="savebutton.png" />
-                            </MenuItem.Icon>-->
+                            <MenuItem.Icon>
+                                <Image Source="Resources/savebutton.png" />
+                            </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="Load" Click="Button_Clickload">
-                            <!--<MenuItem.Icon>
-                                <Image Source="loadbutton.png"/>
-                            </MenuItem.Icon>-->
+                            <MenuItem.Icon>
+                                <Image Source="Resources/loadbutton.jpg"/>
+                            </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="help" Click="Button_Clickhelp">
-                            <!--<MenuItem.Icon>
-                                <Image Source="resetbutton.png"/>
-                            </MenuItem.Icon>-->
+                            <MenuItem.Icon>
+                                <Image Source="Resources/resetbutton.png"/>
+                            </MenuItem.Icon>
                         </MenuItem>
                         <!--<MenuItem Header="help" Click="MenuItem_Click_1"/>-->
                         <Separator />
                         <MenuItem Header="Afsluiten" Click="Button_Clickquit"/>
                     </ContextMenu>
                 </Button.ContextMenu>
-                <!--<Image Source="optionbutton.png"></Image>-->
             </Button>
         </StackPanel>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
