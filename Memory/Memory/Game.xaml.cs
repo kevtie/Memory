@@ -177,11 +177,6 @@ namespace Memory
             }
         }
 
-        private void AddCard(int id, int duplicateId, bool active, int column, int row, string title, bool flipped, string frontBackground, string backBackground)
-        {
-            cards.Add(new Card(id, duplicateId, active, column, row, title, flipped, frontBackground, backBackground));
-        }
-
         private void AddPositions(int cols, int rows)
         {
             for(int row = 0; row < rows; row++)
@@ -205,7 +200,6 @@ namespace Memory
         {
             int id = 1;
             int duplicateId = 1;
-            //Brush cbg = new SolidColorBrush(Colors.Red);
             string frontBg = "";
             string backBg = "";
 
@@ -222,19 +216,7 @@ namespace Memory
                         backBg = bg.Back;
                     }
                 }
-
-                 AddCard(
-                    id, 
-                    duplicateId,
-                    CARDS_START_STATE_FLIPPED,
-                    pos.X,
-                    pos.Y, 
-                    $"Card {duplicateId} [{pos.X} - {pos.Y}] ({positions.Count})", 
-                    CARDS_START_STATE_FLIPPED, 
-                    frontBg,     
-                    backBg
-                );
-
+                cards.Add(new Card(id, duplicateId, CARDS_START_STATE_FLIPPED, pos.X, pos.Y, $"Card {duplicateId} [{pos.X} - {pos.Y}] ({positions.Count})", CARDS_START_STATE_FLIPPED, frontBg, backBg));
                 duplicateId++;
                 id++;
             }
