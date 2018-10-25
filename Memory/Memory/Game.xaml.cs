@@ -57,6 +57,11 @@ namespace Memory
             InitializeGameBoard();
         }
 
+        private void SetGridOptionValue()
+        {
+            GameGridOptions.Text = $"{currentGameColumns}x{currentGameRows}";
+        }
+
         private void InitializeGameBoard()
         {
             ClearGameBoard();
@@ -266,6 +271,7 @@ namespace Memory
             AddCards();
             SetCards();
             CreateGrid(cols, rows);
+            SetGridOptionValue();
             SetTurn(GetPlayerById(START_PLAYER));
         }
 

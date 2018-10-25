@@ -9,7 +9,7 @@
     <DockPanel>
         <StackPanel Margin="10">
             <Button x:Name="Shuffle" Click="Reset_Click" Content="Reset"/>
-            <ComboBox x:Name="GameGridOptions" SelectionChanged="GameGridOptions_SelectionChanged" >
+            <ComboBox x:Name="GameGridOptions" SelectionChanged="GameGridOptions_SelectionChanged">
                 <ComboBoxItem>
                     4x4
                 </ComboBoxItem>
