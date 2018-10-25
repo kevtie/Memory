@@ -222,18 +222,6 @@ namespace Memory
             }
         }
 
-        private SolidColorBrush GetRandomColor(int seed)
-        {
-            Random random = new Random(GetRandomNumber(seed));
-
-            return new SolidColorBrush(
-                Color.FromRgb(
-                    (byte)random.Next(256),
-                    (byte)random.Next(256),
-                    (byte)random.Next(256)
-                ));
-        }
-
         private int GetRandomNumber(int max, int min = 0)
         {
             return new Random().Next(min, max);
