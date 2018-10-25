@@ -20,6 +20,8 @@ namespace Memory
     /// </summary>
     public partial class Main : Window  
     {
+        //public List<Player> players = new List<Player>();
+
         public Main()
         {
             InitializeComponent();
@@ -33,10 +35,11 @@ namespace Memory
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            (sender as Button).ContextMenu.IsEnabled = true;
-            (sender as Button).ContextMenu.PlacementTarget = (sender as Button);
-            (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            (sender as Button).ContextMenu.IsOpen = true;
+            Button button = (sender as Button);
+            button.ContextMenu.IsEnabled = true;
+            button.ContextMenu.PlacementTarget = (sender as Button);
+            button.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            button.ContextMenu.IsOpen = true;
         }
 
         private void Button_Clickload(object sender, RoutedEventArgs e)
@@ -51,11 +54,11 @@ namespace Memory
 
         private void Button_Clickscore(object sender, RoutedEventArgs e)
         {
-
+            //MainFrame.Content = new HighScore();
         }
         private void Button_Clicksave(object sender, RoutedEventArgs e)
         {
-
+            
         }
         private void Button_Clickquit(object sender, RoutedEventArgs e)
         {

@@ -15,81 +15,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Memory
-{
-    //Add in own Player file
-    public class Player
-    {
-        public int Id;
-        public bool Turn;
-        public int Score;
-        public string Name;
-
-        public Player(int id, bool turn, int score, string name)
-        {
-            Id = id;
-            Turn = turn;
-            Score = score;
-            Name = name;
-        }
-    }
-
-    //Add in own Card file
-    public class Card 
-    {
-        public int Id;
-        public int DuplicateId;
-        public bool Active;
-        public string Title;
-        public int Row;
-        public int Column;
-        public bool Flipped;
-        public string FrontBackground;
-        public string BackBackground;
-
-        // _flipped set Flipped to { get; set; }
-
-        public Card(int id, int duplicateId, bool active, int column, int row, string title, bool flipped, string frontBackground, string backBackground)
-        {
-            Id = id;
-            DuplicateId = duplicateId;
-            Active = active;
-            Title = title;
-            Row = row;
-            Column = column;
-            Flipped = flipped;
-            FrontBackground = frontBackground;
-            BackBackground = backBackground;
-        }
-    }
-
-    //Add in own Position file
-    public class Position
-    {
-        public int X;
-        public int Y;
-
-        public Position(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-    }
-
-    //Add in own Background file
-    public class Background
-    {
-        public int Id;
-        public string Front;
-        public string Back;
-
-        public Background(int id, string back, string front)
-        {
-            Id = id;
-            Front = front;
-            Back = back;
-        }
-    }
-
+{ 
     public partial class Game : Page
     {
         private const bool CARDS_START_STATE_FLIPPED = false;
@@ -105,6 +31,8 @@ namespace Memory
         private const int START_PLAYER = 1;
 
         private Player currentPlayer;
+
+        private Main main = ((Main)Application.Current.MainWindow);
 
         private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
@@ -396,7 +324,7 @@ namespace Memory
                 GameBoard.Children.Add(
                     new TextBlock
                     {
-                        Text = $"Player {player.Id}: Score: {player.Score}: Turn: {player.Turn}",
+                        Text = $"{player.Name}: Score: {player.Score}: Turn: {player.Turn}",
                         Margin = new Thickness(2),
                         Foreground = foreground,
                         FontSize = 20,

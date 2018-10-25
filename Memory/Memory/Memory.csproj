@@ -107,6 +107,10 @@
       <DependentUpon>Game.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Background.cs"></Compile>
+    <Compile Include="Card.cs"></Compile>
+    <Compile Include="Position.cs"></Compile>
+    <Compile Include="Player.cs"></Compile>
     <Compile Include="Help.xaml.cs">
       <DependentUpon>Help.xaml</DependentUpon>
       <SubType>Code</SubType>
