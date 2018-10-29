@@ -37,7 +37,11 @@
                                 <Image Source="Resources/resetbutton.png"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <!--<MenuItem Header="help" Click="MenuItem_Click_1"/>-->
+                        <MenuItem Header="high score" Click="Button_ClickHighScore">
+                            <MenuItem.Icon>
+                                <Image Source="Resources/resetbutton.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
                         <Separator />
                         <MenuItem Header="Afsluiten" Click="Button_Clickquit"/>
                     </ContextMenu>

@@ -53,14 +53,16 @@ namespace Memory
             MainFrame.Content = new Help();
         }
 
-        private void Button_Clickscore(object sender, RoutedEventArgs e)
+        private void Button_ClickHighScore(object sender, RoutedEventArgs e)
         {
-            //MainFrame.Content = new HighScore();
+            MainFrame.Content = new HighScore();
         }
+
         private void Button_Clicksave(object sender, RoutedEventArgs e)
         {
             
         }
+
         private void Button_Clickquit(object sender, RoutedEventArgs e)
         {
             Close();
