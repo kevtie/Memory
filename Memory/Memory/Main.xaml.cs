@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +47,7 @@ namespace Memory
 
         private void Button_Clickload(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new Load();
+            LoadSaveFile();
         }
 
         private void Button_Clickhelp(object sender, RoutedEventArgs e)
@@ -60,7 +62,17 @@ namespace Memory
 
         private void Button_Clicksave(object sender, RoutedEventArgs e)
         {
+            CreateSaveFile();
+        }
+
+        private void CreateSaveFile()
+        {
             
+        }
+
+        private void LoadSaveFile()
+        {
+
         }
 
         private void Button_Clickquit(object sender, RoutedEventArgs e)
