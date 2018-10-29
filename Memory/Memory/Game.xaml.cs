@@ -274,7 +274,7 @@ namespace Memory
                 GameBoard.Children.Add(
                     new TextBlock
                     {
-                        Text = $"{player.Name}: Score: {player.Score}: Turn: {player.Turn}",
+                        Text = $"Speler {player.Id}: {player.Name}: Score: {player.Score}",
                         Margin = new Thickness(2),
                         Foreground = foreground,
                         FontSize = 20,
