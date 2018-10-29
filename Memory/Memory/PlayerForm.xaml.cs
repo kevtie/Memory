@@ -20,9 +20,60 @@ namespace Memory
     /// </summary>
     public partial class PlayerForm : Page
     {
+        private Main main = ((Main)Application.Current.MainWindow);
+        private List<Player> activePlayers = new List<Player>();
+        private int playerCounter = 1;
+
+        private const int PLAYER_LIMIT = 4;
+
         public PlayerForm()
         {
             InitializeComponent();
+            SetButtons();
+        }
+
+        private void SetStartGameButton()
+        {
+            if (activePlayers.Count <= 0)
+                StartGameButton.Visibility = Visibility.Hidden;
+            else
+                StartGameButton.Visibility = Visibility.Visible;
+        }
+
+        private void SetAddPlayerButton()
+        {
+            if (activePlayers.Count >= PLAYER_LIMIT)
+                AddPlayerButton.Visibility = Visibility.Hidden;
+            else
+                AddPlayerButton.Visibility = Visibility.Visible;
+        }
+
+        private void SetButtons()
+        {
+            SetStartGameButton();
+            SetAddPlayerButton();
+        }
+
+        private void Button_ClickAdd(object sender, RoutedEventArgs e)
+        {
+            SetPlayerData(new Player(playerCounter, false, 0, UserInput.Text));
+            playerCounter++;
+            SetButtons();
+            UserInput.Clear();
+        }
+
+        private void SetPlayerData(Player player)
+        {
+            TextBlock nameBlock = new TextBlock();
+            nameBlock.Text = $"Speler {player.Id}: {player.Name}";
+
+            activePlayers.Add(player);
+            ActivePlayerList.Items.Add(nameBlock);
+        }
+
+        private void Button_ClickStart(object sender, RoutedEventArgs e)
+        {
+            //MainFrame.Content = new Game();
         }
     }
 }

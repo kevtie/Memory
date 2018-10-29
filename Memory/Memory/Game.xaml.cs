@@ -259,6 +259,7 @@ namespace Memory
         public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
+
             AddPlayers();
             SetGridSize(cols, rows);
             AddPositions(cols, rows);

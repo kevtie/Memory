@@ -5,30 +5,21 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Memory"
       mc:Ignorable="d" 
-      d:DesignHeight="200" d:DesignWidth="200"
+      d:DesignHeight="500" d:DesignWidth="700"
       Title="PlayerForm">
 
-    <Grid x:Name="PlayerFormContainer" Margin="10" Background="White" HorizontalAlignment="Stretch">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <Label Grid.Row="1">Player 1 name:</Label>
-        <TextBox Grid.Row="1" Grid.Column="2" />
-        <Label Grid.Row="2">Player 2 name:</Label>
-        <TextBox Grid.Row="2" Grid.Column="2" />
-        <Label Grid.Row="3">Player 3 name:</Label>
-        <TextBox Grid.Row="3" Grid.Column="2" />
-        <Label Grid.Row="4">Player 4 name:</Label>
-        <TextBox Grid.Row="4" Grid.Column="2" />
-        <Button Grid.Row="5" Grid.Column="1" Content="Start" />
+    <Grid x:Name="PlayerFormContainer" VerticalAlignment="Center" Background="White" Height="500">
+        <StackPanel HorizontalAlignment="Stretch">
+            <ListView x:Name="ActivePlayerList" Margin="5" Padding="40">
+                <Grid x:Name="ActivePlayerListGrid" Width="500" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </ListView>
+            <TextBox Margin="5" Name="UserInput" />
+            <Button x:Name="AddPlayerButton" Margin="5" Content="Voeg Speler toe" Click="Button_ClickAdd" />
+            <Button x:Name="StartGameButton" Margin="5" Content="Start spel" Click="Button_ClickStart" />
+        </StackPanel>
     </Grid>
 </Page>
