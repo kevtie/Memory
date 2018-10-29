@@ -276,6 +276,8 @@ namespace Memory
                     {
                         Text = $"Speler {player.Id}: {player.Name}: Score: {player.Score}",
                         Margin = new Thickness(2),
+                        Padding = new Thickness(2),
+                        Background = new SolidColorBrush(Colors.White),
                         Foreground = foreground,
                         FontSize = 20,
                         HorizontalAlignment = HorizontalAlignment.Center
