@@ -6,11 +6,14 @@
         xmlns:local="clr-namespace:Memory"
         mc:Ignorable="d"
         Title="Memory Game Start" Height="450" Width="800" WindowState="Maximized">
-    <Grid x:Name="MainGrid">
+    
+    <Grid x:Name="MainGrid" Margin="10">
         <Grid.Background>
             <ImageBrush ImageSource="Resources/background2.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+
+        <StackPanel x:Name="Navigation" Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+            
             <Button Click="Button_Click" Content="game" VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="0,0,00,0">
                 <Button.ContextMenu>
                     <ContextMenu>

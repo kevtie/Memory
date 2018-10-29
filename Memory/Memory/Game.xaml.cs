@@ -249,13 +249,9 @@ namespace Memory
         private void FlipCard(Card card)
         {
             if(!card.Flipped) 
-            {
                 card.Flipped = true;
-            }
             else 
-            {
                 card.Flipped = false;
-            }
 
             SetActiveCard(card, card.Flipped);
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -30,7 +31,8 @@ namespace Memory
         private void Button_Clicknew(object sender, RoutedEventArgs e)
         {
             //if less than 2 players else SECOND etc.
-            MainFrame.Content = new Game();
+            MainFrame.Content = new PlayerForm();
+            //MainFrame.Content = new Game();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

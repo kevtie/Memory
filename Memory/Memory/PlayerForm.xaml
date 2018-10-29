@@ -1,0 +1,34 @@
+﻿<Page x:Class="Memory.PlayerForm"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Memory"
+      mc:Ignorable="d" 
+      d:DesignHeight="200" d:DesignWidth="200"
+      Title="PlayerForm">
+
+    <Grid x:Name="PlayerFormContainer" Margin="10" Background="White" HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1">Player 1 name:</Label>
+        <TextBox Grid.Row="1" Grid.Column="2" />
+        <Label Grid.Row="2">Player 2 name:</Label>
+        <TextBox Grid.Row="2" Grid.Column="2" />
+        <Label Grid.Row="3">Player 3 name:</Label>
+        <TextBox Grid.Row="3" Grid.Column="2" />
+        <Label Grid.Row="4">Player 4 name:</Label>
+        <TextBox Grid.Row="4" Grid.Column="2" />
+        <Button Grid.Row="5" Grid.Column="1" Content="Start" />
+    </Grid>
+</Page>
