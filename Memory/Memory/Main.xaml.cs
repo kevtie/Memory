@@ -21,7 +21,7 @@ namespace Memory
     /// </summary>
     public partial class Main : Window  
     {
-        //public List<Player> players = new List<Player>();
+        public List<Player> players = new List<Player>();
 
         public Main()
         {
@@ -30,16 +30,15 @@ namespace Memory
 
         private void Button_Clicknew(object sender, RoutedEventArgs e)
         {
-            //if less than 2 players else SECOND etc.
+            players.Clear();
             MainFrame.Content = new PlayerForm();
-            //MainFrame.Content = new Game();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (sender as Button);
             button.ContextMenu.IsEnabled = true;
-            button.ContextMenu.PlacementTarget = (sender as Button);
+            button.ContextMenu.PlacementTarget = button;
             button.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             button.ContextMenu.IsOpen = true;
         }

@@ -30,6 +30,7 @@ namespace Memory
 
         private const int START_PLAYER = 1;
 
+
         private Player currentPlayer;
 
         private Main main = ((Main)Application.Current.MainWindow);
@@ -37,20 +38,15 @@ namespace Memory
         private List<Position> positions = new List<Position>();
         private List<Card> cards = new List<Card>();
         private List<Background> backgrounds = new List<Background>();
-        private List<Player> players = new List<Player>();
 
         private int currentGameColumns = FIRST_GAME_GRID_ROWS;
         private int currentGameRows = FIRST_GAME_GRID_ROWS;
-
-        private bool DEBUG = false;
-
-        private const int PLAYER_COUNT = 4;
 
         public Game()
         {
             InitializeComponent();
 
-            if (PLAYER_COUNT > 1)
+            if (main.players.Count > 1)
                 SetGridSize(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
 
             InitializeGameGrid(currentGameColumns, currentGameRows);
@@ -76,34 +72,26 @@ namespace Memory
         private void SetTurn(Player player, bool turn = true)
         {
             player.Turn = turn;
-            players.Remove(player);
-            players.Add(player);
+            main.players.Remove(player);
+            main.players.Add(player);
             SetCurrentPlayer(player);
         }
 
         private void SetScore(Player player, int score = CARD_SCORE_VALUE)
         {
             player.Score = player.Score + score;
-            players.Remove(player);
-            players.Add(player);
-        }
-
-        private void AddPlayers(int count = PLAYER_COUNT)
-        {
-            for(int i = 1; i < count + 1; i++)
-            {
-                players.Add(new Player(i, false, 0, $"Player {i}"));
-            }
+            main.players.Remove(player);
+            main.players.Add(player);
         }
 
         private Player GetActivePlayer()
         {
-            return players.Where(p => p.Turn == true).ToList().First();
+            return main.players.Where(p => p.Turn == true).ToList().First();
         }
 
         private Player GetPlayerById(int id)
         {
-            return players.Where(p => p.Id == id).ToList().First();
+            return main.players.Where(p => p.Id == id).ToList().First();
         }
 
         private void HandleGameGridOptions()
@@ -152,14 +140,6 @@ namespace Memory
             image.Margin = new Thickness(2);
             image.Name = "c" + id.ToString();
             image.MouseDown += new MouseButtonEventHandler(Card_Click);
-
-
-            if (DEBUG)
-            {
-                TextBlock tb = new TextBlock();
-                var bold = new Bold(new Run(title));
-                tb.Inlines.Add(bold);
-            }
 
             Grid.SetColumn(image, column);
             Grid.SetRow(image, row);
@@ -236,7 +216,6 @@ namespace Memory
         {
             positions.Clear();
             cards.Clear();
-            players.Clear();
             GameGrid.RowDefinitions.Clear();
             GameGrid.ColumnDefinitions.Clear();
         }
@@ -259,8 +238,6 @@ namespace Memory
         public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
-
-            AddPlayers();
             SetGridSize(cols, rows);
             AddPositions(cols, rows);
             AddBackgrounds();
@@ -285,11 +262,11 @@ namespace Memory
             }
         }
 
-        private void SetPlayers(int count = PLAYER_COUNT)
+        private void SetPlayers()
         {
             SolidColorBrush foreground = new SolidColorBrush(Colors.Red);
 
-            foreach(var player in players)
+            foreach(var player in main.players)
             {
                 if (player.Turn)
                     foreground = new SolidColorBrush(Colors.Green);
@@ -372,7 +349,7 @@ namespace Memory
                     FlipCard(card2);
                     SetTurn(currentPlayer, false);
 
-                    if(currentPlayer.Id >= players.Count)
+                    if(currentPlayer.Id >= main.players.Count)
                         SetTurn(GetPlayerById(START_PLAYER));
                     else
                         SetTurn(GetPlayerById(currentPlayer.Id + 1));
@@ -381,6 +358,11 @@ namespace Memory
                 InitializeGameBoard();
             }
         }
+
+        //private WinGame()
+        //{
+        //  main.players.Clear();
+        //}
 
         private void SetActiveCard(Card card, bool active)
         {
