@@ -314,9 +314,7 @@ namespace Memory
             }
 
             if (GetFlippedCards().Count == cards.Count)
-            {
-                InitializeGameGrid(currentGameColumns, currentGameRows);
-            }
+                main.MainFrame.Content = new HighScore();
         }
 
         private List<Card> GetActiveCards()
@@ -360,11 +358,6 @@ namespace Memory
                 InitializeGameBoard();
             }
         }
-
-        //private WinGame()
-        //{
-        //  main.players.Clear();
-        //}
 
         private void SetActiveCard(Card card, bool active)
         {
