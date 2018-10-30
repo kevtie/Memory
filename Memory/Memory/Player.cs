@@ -1,5 +1,5 @@
 /// <summary>
-/// Player class is a class where a players data is stored.
+/// Player is a class where a players data is stored.
 /// </summary>
 public class Player
 {

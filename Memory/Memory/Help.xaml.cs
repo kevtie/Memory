@@ -16,10 +16,13 @@ using System.Windows.Shapes;
 namespace Memory
 {
     /// <summary>
-    /// Interaction logic for Help.xaml
+    /// Help is the class that holds the interaction logic for Help.xaml.
     /// </summary>
     public partial class Help : Page
     {
+        /// <summary>
+        /// Help is a method that gets excecuted when a new Help object is created.
+        /// </summary>
         public Help()
         {
             InitializeComponent();
