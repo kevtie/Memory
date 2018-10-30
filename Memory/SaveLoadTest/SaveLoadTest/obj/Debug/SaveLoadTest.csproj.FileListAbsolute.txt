@@ -1,0 +1,7 @@
+C:\Users\liort\source\repos\SaveLoadTest\SaveLoadTest\bin\Debug\SaveLoadTest.exe.config
+C:\Users\liort\source\repos\SaveLoadTest\SaveLoadTest\bin\Debug\SaveLoadTest.exe
+C:\Users\liort\source\repos\SaveLoadTest\SaveLoadTest\bin\Debug\SaveLoadTest.pdb
+C:\Users\liort\source\repos\SaveLoadTest\SaveLoadTest\obj\Debug\SaveLoadTest.csprojAssemblyReference.cache
+C:\Users\liort\source\repos\SaveLoadTest\SaveLoadTest\obj\Debug\SaveLoadTest.csproj.CoreCompileInputs.cache
+C:\Users\liort\source\repos\SaveLoadTest\SaveLoadTest\obj\Debug\SaveLoadTest.exe
+C:\Users\liort\source\repos\SaveLoadTest\SaveLoadTest\obj\Debug\SaveLoadTest.pdb
