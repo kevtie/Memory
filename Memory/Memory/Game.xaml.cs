@@ -79,9 +79,22 @@ namespace Memory
 
         private void SetScore(Player player, int score = CARD_SCORE_VALUE)
         {
-            player.Score = player.Score + score;
+            if (score == 0)
+                player.Score = 0;
+            else
+                player.Score = player.Score + score;
+
             main.players.Remove(player);
             main.players.Add(player);
+        }
+
+        private void ResetScoresAndTurns()
+        {
+            foreach(var player in main.players.ToList())
+            {
+                SetTurn(player, false);
+                SetScore(player, 0);
+            }
         }
 
         private Player GetActivePlayer()
@@ -238,6 +251,7 @@ namespace Memory
         public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
+            ResetScoresAndTurns();
             SetGridSize(cols, rows);
             AddPositions(cols, rows);
             AddBackgrounds();

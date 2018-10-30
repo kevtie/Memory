@@ -56,7 +56,7 @@ namespace Memory
                 TextBlock scoreBlock = new TextBlock();
                 TextBlock nameBlock = new TextBlock();
 
-                rankBlock.Text = player.Id.ToString();
+                rankBlock.Text = row.ToString();
                 scoreBlock.Text = player.Score.ToString();
                 nameBlock.Text = player.Name;
 
