@@ -20,7 +20,7 @@ using System.Xml.Linq;
 namespace Memory
 {
     /// <summary>
-    /// Interaction logic for HighScore.xaml
+    /// HighScore is a class thats holds the Interaction logic for HighScore.xaml
     /// </summary>
     public partial class HighScore : Page
     {
@@ -29,6 +29,9 @@ namespace Memory
 
         private const int HIGH_SCORE_LIMIT = 10;
 
+        /// <summary>
+        /// HighScore is a method that gets excecuted when a new HighScore object is created.
+        /// </summary>
         public HighScore()
         {
             InitializeComponent();
@@ -42,12 +45,19 @@ namespace Memory
             SetHighScores();
         }
 
+        /// <summary>
+        /// AddHighScores is a method that adds Player highscores to HighScoreGrid. 
+        /// </summary>
         private void AddHighScores()
         {
             foreach (var player in main.players)
                 AddPlayerHighScore(player);
         }
 
+        /// <summary>
+        /// CreateGrid is a method that sets rows for HighScoreGrid.
+        /// </summary>
+        /// <param name="rows"></param>
         private void CreateGrid(int rows = HIGH_SCORE_LIMIT + 1)
         {
             HighScoreGrid.RowDefinitions.Clear();
@@ -56,6 +66,9 @@ namespace Memory
                 HighScoreGrid.RowDefinitions.Add(new RowDefinition());
         }
 
+        /// <summary>
+        /// CreateHighScoreFile is a method that creates a HighScores.xml file.
+        /// </summary>
         private void CreateHighScoreFile()
         {
             new XDocument(
@@ -63,6 +76,9 @@ namespace Memory
             ).Save("HighScores.xml");
         }
 
+        /// <summary>
+        /// AddPlayerHighScore is a method adds a player object to the HighScores.xml file.
+        /// </summary>
         private void AddPlayerHighScore(Player player)
         {
             XDocument doc = XDocument.Load("HighScores.xml");
@@ -81,6 +97,9 @@ namespace Memory
             doc.Save("HighScores.xml");
         }
 
+        /// <summary>
+        /// GetHighScoreFileData gets all players from the HighScores.xml file.
+        /// </summary>
         private void GetHighScoreFileData()
         {
             XDocument doc = XDocument.Load("HighScores.xml");
@@ -95,6 +114,9 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// SetHighScores is a method that sets all data on the HighScoreGrid.
+        /// </summary>
         private void SetHighScores()
         {
             int row = 1;
