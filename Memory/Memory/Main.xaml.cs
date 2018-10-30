@@ -19,23 +19,37 @@ using System.Windows.Shapes;
 namespace Memory
 {
     /// <summary>
-    /// Interaction logic for Main.xaml
+    /// Main : Window is the current window where all data is shown.
     /// </summary>
     public partial class Main : Window  
     {
         public List<Player> players = new List<Player>();
 
+        /// <summary>
+        /// Main is a method that gets excecuted when a new Main object is created.
+        /// </summary>
         public Main()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Button_Clicknew is a navgition button that empties the players list and shows a page with a player form in it.
+        /// In the playerform you can add players to the game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Clicknew(object sender, RoutedEventArgs e)
         {
             players.Clear();
             MainFrame.Content = new PlayerForm();
         }
 
+        /// <summary>
+        /// Button_Click is a navigation button that shows options in a dropdown menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (sender as Button);
@@ -45,36 +59,69 @@ namespace Memory
             button.ContextMenu.IsOpen = true;
         }
 
+        /// <summary>
+        /// Button_Clickload is a button action that loads data from the memory.sav file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Clickload(object sender, RoutedEventArgs e)
         {
             LoadSaveFile();
         }
 
+        /// <summary>
+        /// Button_Clickhelp is a button action that shows a page called Help.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Clickhelp(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new Help();
         }
 
+        /// <summary>
+        /// Button_ClickHighScore is a button that shows a page called HighScore.
+        /// Under construction.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_ClickHighScore(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new HighScore();
         }
 
+        /// <summary>
+        /// Button_Clicksave is a button action that saves the current state of the game.
+        /// Under construction.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Clicksave(object sender, RoutedEventArgs e)
         {
             CreateSaveFile();
         }
 
+        /// <summary>
+        /// CreateSaveFile is a method that creates a memory.sav file.
+        /// </summary>
         private void CreateSaveFile()
         {
             
         }
 
+        /// <summary>
+        /// LoadSaveFile is a method that loads data from memory.sav file.
+        /// </summary>
         private void LoadSaveFile()
         {
 
         }
 
+        /// <summary>
+        /// Button_Clickquit is a button action that closes the Main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Clickquit(object sender, RoutedEventArgs e)
         {
             Close();

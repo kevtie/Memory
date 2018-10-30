@@ -69,11 +69,12 @@ namespace Memory
             XElement players = doc.Element("Players");
 
             players.Add(
-                new XElement("Player", new XAttribute("Id", player.Id),
+                new XElement("Player",
+                    new XElement("Id", player.Id),
                     new XElement("Score", player.Score),
                     new XElement("Turn", player.Turn),
                     new XElement("Name", player.Name)
-                    //Player.status gewonnen of verloren
+                    //new XElement("Status", player.Status)
                 )
             );
 
@@ -88,8 +89,9 @@ namespace Memory
                 bool playerTurn = Convert.ToBoolean(player.Element("Turn").Value);
                 string playerName = player.Element("Name").Value;
                 int playerScore = Convert.ToInt32(player.Element("Score").Value);
+                int playerId = Convert.ToInt32(player.Element("Id").Value);
 
-                highScoreList.Add(new Player(0, playerTurn, playerScore, playerName));
+                highScoreList.Add(new Player(playerId, playerTurn, playerScore, playerName));
             }
         }
 
