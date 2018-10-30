@@ -189,9 +189,7 @@ namespace Memory
         private void AddBackgrounds()
         {
             for(int i = 1; i <= GetGridSize() / 2; i++)
-            {
                 backgrounds.Add(new Background(i, "Resources/card_back.jpg", $"Resources/{i}.jpg"));
-            }
         }
 
         private void AddCards()
