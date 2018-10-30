@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 namespace Memory
 {
     /// <summary>
-    /// Main : Window is the current window where all data is shown.
+    /// Main is the class that holds the interaction logic for Main.xaml.
     /// </summary>
     public partial class Main : Window  
     {
