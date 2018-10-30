@@ -15,7 +15,10 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Memory
-{ 
+{
+    /// <summary>
+    /// Game is a class thats holds the Interaction logic for Game.xaml
+    /// </summary>
     public partial class Game : Page
     {
         private const bool CARDS_START_STATE_FLIPPED = false;
@@ -30,7 +33,6 @@ namespace Memory
 
         private const int START_PLAYER = 1;
 
-
         private Player currentPlayer;
 
         private Main main = ((Main)Application.Current.MainWindow);
@@ -42,6 +44,9 @@ namespace Memory
         private int currentGameColumns = FIRST_GAME_GRID_ROWS;
         private int currentGameRows = FIRST_GAME_GRID_ROWS;
 
+        /// <summary>
+        /// Game is a method that gets excecuted when a new Game object is created.
+        /// </summary>
         public Game()
         {
             InitializeComponent();
@@ -53,22 +58,37 @@ namespace Memory
             InitializeGameBoard();
         }
 
+        /// <summary>
+        /// SetGridOptionValue is a method that sets GameGridOptions.Text to current grid data.
+        /// </summary>
         private void SetGridOptionValue()
         {
             GameGridOptions.Text = $"{currentGameColumns}x{currentGameRows}";
         }
 
+        /// <summary>
+        /// InitializeGameBoard is a method that makes sets the GameBoard container data.
+        /// </summary>
         private void InitializeGameBoard()
         {
             ClearGameBoard();
             SetPlayers();
         }
 
+        /// <summary>
+        /// SetCurrentPlayer is a method that sets currentPlayer variable to a Player object.
+        /// </summary>
+        /// <param name="player">Player object.</param>
         private void SetCurrentPlayer(Player player)
         {
             currentPlayer = player;
         }
 
+        /// <summary>
+        /// SetTurn is a method that sets a Player objects turn to true or false.
+        /// </summary>
+        /// <param name="player">Player Object.</param>
+        /// <param name="turn">Boolean.</param>
         private void SetTurn(Player player, bool turn = true)
         {
             player.Turn = turn;
@@ -77,6 +97,11 @@ namespace Memory
             SetCurrentPlayer(player);
         }
 
+        /// <summary>
+        /// SetScore is a method that sets a Player objects score to a chosen value.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="score"></param>
         private void SetScore(Player player, int score = CARD_SCORE_VALUE)
         {
             if (score == 0)
@@ -88,6 +113,9 @@ namespace Memory
             main.players.Add(player);
         }
 
+        /// <summary>
+        /// ResetScoresAndTurns is a method that resets the scores and turns of all current active players.
+        /// </summary>
         private void ResetScoresAndTurns()
         {
             foreach(var player in main.players.ToList())
@@ -97,16 +125,28 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// GetActivePlayer is a method that returns a Player object where turn is true.
+        /// </summary>
+        /// <returns>Player Object</returns>
         private Player GetActivePlayer()
         {
             return main.players.Where(p => p.Turn == true).ToList().First();
         }
 
+        /// <summary>
+        /// GetPlayerById is a method that returns a player Object from id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Player Object</returns>
         private Player GetPlayerById(int id)
         {
             return main.players.Where(p => p.Id == id).ToList().First();
         }
 
+        /// <summary>
+        /// HandleGameGridOptions is a method that sets GridOptions items functionality.
+        /// </summary>
         private void HandleGameGridOptions()
         {
             switch (GameGridOptions.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
@@ -122,28 +162,56 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// GameGridOptions_SelectionChanged is a method that checks for changes in GridOptions.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GameGridOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             HandleGameGridOptions();
         }
-            
+
+        /// <summary>
+        /// SetGridSize is a method that sets currentGame cols and rows global variables.
+        /// </summary>
+        /// <param name="cols"></param>
+        /// <param name="rows"></param>
         private void SetGridSize(int cols, int rows)
         {
             currentGameColumns = cols;
             currentGameRows = rows;
         }
 
+        /// <summary>
+        /// GetGridSize is a method that gets current grid size from global cols and rows variables.
+        /// </summary>
         private int GetGridSize()
         {
             return currentGameColumns * currentGameRows;
         }
 
+        /// <summary>
+        /// RandomizePositions is a method that randomizes global Position Objects list.
+        /// </summary>
         private void RandomizePositions()
         {
             Random rng = new Random();
             positions = positions.OrderBy(x => rng.Next()).ToList();
         }
 
+        /// <summary>
+        /// SetCard is a method that adds and positions a card object on the GameGrid.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duplicateId"></param>
+        /// <param name="active"></param>
+        /// <param name="title"></param>
+        /// <param name="column"></param>
+        /// <param name="row"></param>
+        /// <param name="flipped"></param>
+        /// <param name="frontBackground"></param>
+        /// <param name="backBackground"></param>
         private void SetCard(int id, int duplicateId, bool active, string title, int column, int row, bool flipped, string frontBackground, string backBackground)
         {
 
@@ -159,6 +227,14 @@ namespace Memory
             GameGrid.Children.Add(image);
         }
 
+
+        /// <summary>
+        /// SetCardState is a method that sets card background based on flipped boolean.
+        /// </summary>
+        /// <param name="flipped"></param>
+        /// <param name="frontBackground"></param>
+        /// <param name="backBackground"></param>
+        /// <returns></returns>
         private ImageSource SetCardState(bool flipped, string frontBackground, string backBackground)
         {
             if(flipped)
@@ -167,6 +243,9 @@ namespace Memory
             return new BitmapImage(new Uri(backBackground, UriKind.Relative));
         }
 
+        /// <summary>
+        /// SetCards is a method that adds all global cards and positions them on the GameGrid.
+        /// </summary>
         private void SetCards()
         {
             foreach(var card in cards)
@@ -175,6 +254,11 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// AddPositions is a method that adds all positions to the global position objects list.
+        /// </summary>
+        /// <param name="cols"></param>
+        /// <param name="rows"></param>
         private void AddPositions(int cols, int rows)
         {
             for(int row = 0; row < rows; row++)
@@ -186,12 +270,18 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// AddBackgrounds is a method that adds all backgrounds to the global background objects list.
+        /// </summary>
         private void AddBackgrounds()
         {
             for(int i = 1; i <= GetGridSize() / 2; i++)
                 backgrounds.Add(new Background(i, "Resources/card_back.jpg", $"Resources/{i}.jpg"));
         }
 
+        /// <summary>
+        /// AddBackgrounds is a method that adds all cards to the global card objects list.
+        /// </summary>
         private void AddCards()
         {
             int id = 1;
@@ -218,11 +308,20 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// GetRandomNumber is a method that returns a random number.
+        /// </summary>
+        /// <param name="max"></param>
+        /// <param name="min"></param>
+        /// <returns>Random Number</returns>
         private int GetRandomNumber(int max, int min = 0)
         {
             return new Random().Next(min, max);
         }
 
+        /// <summary>
+        /// ClearGrid is a method that removes all items on the GameGrid.
+        /// </summary>
         private void ClearGrid()
         {
             positions.Clear();
@@ -231,11 +330,18 @@ namespace Memory
             GameGrid.ColumnDefinitions.Clear();
         }
 
+        /// <summary>
+        /// ClearGameBoard is a method that removes all data inside the GameBoard.
+        /// </summary>
         private void ClearGameBoard()
         {
             GameBoard.Children.Clear();
         }
 
+        /// <summary>
+        /// FlipCard is a method that sets card Object flipped state.
+        /// </summary>
+        /// <param name="card"></param>
         private void FlipCard(Card card)
         {
             if(!card.Flipped) 
@@ -246,6 +352,11 @@ namespace Memory
             SetActiveCard(card, card.Flipped);
         }
 
+        /// <summary>
+        /// InitializeGameGrid is a method that activates all methods for initializing the GameGrid.
+        /// </summary>
+        /// <param name="cols"></param>
+        /// <param name="rows"></param>
         public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
@@ -261,6 +372,11 @@ namespace Memory
             SetTurn(GetPlayerById(START_PLAYER));
         }
 
+        /// <summary>
+        /// CreateGrid is a method that creates rows and columns for the GameGrid.
+        /// </summary>
+        /// <param name="cols"></param>
+        /// <param name="rows"></param>
         private void CreateGrid(int cols, int rows)
         {
              for (int i = 0; i < cols; i++)
@@ -274,6 +390,11 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// SetPlayers is a method that sets all active player data on the GameBoard.
+        /// </summary>
+        /// <param name="cols"></param>
+        /// <param name="rows"></param>
         private void SetPlayers()
         {
             SolidColorBrush foreground = new SolidColorBrush(Colors.Red);
@@ -298,17 +419,32 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// GetCardById is a method that return a card object based on specific Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Card Object</returns>
         private Card GetCardById(int id)
         {
             return cards.Where(c => c.Id == id).ToList().First();
         }
 
+        /// <summary>
+        /// Reset_Click is a button action that reset the GameGrid and GameBoard.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             InitializeGameGrid(currentGameColumns, currentGameRows);
             InitializeGameBoard();
         }
 
+        /// <summary>
+        /// Card_Click is a method that flips the card the player clicked on.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Card_Click(object sender, MouseButtonEventArgs e)
         {
             Page page = new Page();
@@ -329,16 +465,27 @@ namespace Memory
                 main.MainFrame.Content = new HighScore();
         }
 
+        /// <summary>
+        /// GetActiveCards is a method that return all active cards.
+        /// </summary>
+        /// <returns>Card Object List</returns>
         private List<Card> GetActiveCards()
         {
             return cards.Where(c => c.Active == true).ToList();
         }
 
+        /// <summary>
+        /// GetFlippedCards is a method that returns aall flipped cards.
+        /// </summary>
+        /// <returns>Card Object List</returns>
         private List<Card> GetFlippedCards()
         {
             return cards.Where(c => c.Flipped == true).ToList();
         }
 
+        /// <summary>
+        /// CompareCards is a method that compares duplicateId of two cards.
+        /// </summary>
         private void CompareCards()
         {
             List<Card> activeCards = GetActiveCards();
@@ -371,6 +518,11 @@ namespace Memory
             }
         }
 
+        /// <summary>
+        /// SetActiveCard is a method thats sets a card object active state.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="active"></param>
         private void SetActiveCard(Card card, bool active)
         {
             card.Active = active;
