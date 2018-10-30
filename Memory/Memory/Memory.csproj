@@ -103,10 +103,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Load.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Main.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,10 +125,6 @@
     </Compile>
     <Compile Include="Help.xaml.cs">
       <DependentUpon>Help.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Load.xaml.cs">
-      <DependentUpon>Load.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Main.xaml.cs">
