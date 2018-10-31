@@ -52,6 +52,8 @@ namespace Memory
         {
             foreach (var player in main.players)
                 AddPlayerHighScore(player);
+
+            main.players.Clear();
         }
 
         /// <summary>
