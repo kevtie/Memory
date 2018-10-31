@@ -39,9 +39,11 @@ namespace Memory
 
             if (!File.Exists("HighScores.xml"))
                 CreateHighScoreFile();
-            else
-                GetHighScoreFileData();
 
+            if (main.players.Count > 0)
+                AddHighScores();
+
+            GetHighScoreFileData();
             SetHighScores();
         }
 
@@ -122,9 +124,6 @@ namespace Memory
         private void SetHighScores()
         {
             int row = 1;
-
-            if(main.players.Count > 0)
-                AddHighScores();
 
             foreach (var player in highScoreList.OrderByDescending(i => i.Score).Take(HIGH_SCORE_LIMIT))
             {

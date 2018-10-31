@@ -214,7 +214,6 @@ namespace Memory
         /// <param name="backBackground"></param>
         private void SetCard(int id, int duplicateId, bool active, string title, int column, int row, bool flipped, string frontBackground, string backBackground)
         {
-
             Image image = new Image();
 
             image.Source = SetCardState(flipped, frontBackground, backBackground);
@@ -462,7 +461,9 @@ namespace Memory
             }
 
             if (GetFlippedCards().Count == cards.Count)
-                main.MainFrame.Content = new HighScore();
+            {
+                NavigationService.Navigate(new HighScore());
+            }
         }
 
         /// <summary>
