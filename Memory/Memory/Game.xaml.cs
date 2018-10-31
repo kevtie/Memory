@@ -30,6 +30,7 @@ namespace Memory
         private const int SECOND_GAME_GRID_ROWS = 6;
 
         private const int CARD_SCORE_VALUE = 50;
+        private const int CARD_SCORE_NEGATIVE_VALUE = -CARD_SCORE_VALUE / 5;
 
         private const int START_PLAYER = 1;
 
@@ -507,6 +508,7 @@ namespace Memory
                 {
                     FlipCard(card1);
                     FlipCard(card2);
+                    SetScore(GetActivePlayer(), CARD_SCORE_NEGATIVE_VALUE);
                     SetTurn(currentPlayer, false);
 
                     if(currentPlayer.Id >= main.players.Count)
