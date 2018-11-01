@@ -38,11 +38,6 @@ namespace Memory
 
         private Main main = ((Main)Application.Current.MainWindow);
 
-        private List<Position> positions = new List<Position>();
-        private List<Card> cards = new List<Card>();
-        private List<Background> backgrounds = new List<Background>();
-
-
         /// <summary>
         /// Game is a method that gets excecuted when a new Game object is created.
         /// </summary>
@@ -50,15 +45,19 @@ namespace Memory
         {
             InitializeComponent();
 
-            if (main.players.Count > 1)
-                SetGridSize(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
-            else
-                SetGridSize(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
+            if(!loaded)
+            {
+                if (main.players.Count > 1)
+                    SetGridSize(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
+                else
+                    SetGridSize(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
 
-            if (loaded)
-                LoadGameGrid();
-            else
                 InitializeGameGrid(main.currentGameColumns, main.currentGameRows);
+            }
+            else
+            {
+                LoadGameGrid();
+            }
 
             InitializeGameBoard();
         }
@@ -202,11 +201,11 @@ namespace Memory
         private void RandomizePositions()
         {
             Random rng = new Random();
-            positions = positions.OrderBy(x => rng.Next()).ToList();
+            main.positions = main.positions.OrderBy(x => rng.Next()).ToList();
         }
 
         /// <summary>
-        /// SetCard is a method that adds and positions a card object on the GameGrid.
+        /// SetCard is a method that adds and main.positions a card object on the GameGrid.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="duplicateId"></param>
@@ -248,18 +247,18 @@ namespace Memory
         }
 
         /// <summary>
-        /// SetCards is a method that adds all global cards and positions them on the GameGrid.
+        /// SetCards is a method that adds all global main.cards and positions them on the GameGrid.
         /// </summary>
         private void SetCards()
         {
-            foreach(var card in cards)
+            foreach(var card in main.cards)
             {
                 SetCard(card.Id, card.DuplicateId, card.Active, card.Title, card.Column, card.Row, card.Flipped, card.FrontBackground, card.BackBackground); 
             }
         }
 
         /// <summary>
-        /// AddPositions is a method that adds all positions to the global position objects list.
+        /// AddPositions is a method that adds all main.positions to the global position objects list.
         /// </summary>
         /// <param name="cols"></param>
         /// <param name="rows"></param>
@@ -269,22 +268,27 @@ namespace Memory
             {
                 for(int col = 0; col < cols; col++) 
                 {
-                    positions.Add(new Position(row, col));
+                    main.positions.Add(new Position(row, col));
                 }
             }
         }
 
+        private void SetPositions()
+        {
+            //main.main.positions
+        }
+
         /// <summary>
-        /// AddBackgrounds is a method that adds all backgrounds to the global background objects list.
+        /// AddBackgrounds is a method that adds all main.backgrounds to the global background objects list.
         /// </summary>
         private void AddBackgrounds()
         {
             for(int i = 1; i <= GetGridSize() / 2; i++)
-                backgrounds.Add(new Background(i, "Resources/card_back.jpg", $"Resources/{i}.jpg"));
+                main.backgrounds.Add(new Background(i, "Resources/card_back.jpg", $"Resources/{i}.jpg"));
         }
 
         /// <summary>
-        /// AddBackgrounds is a method that adds all cards to the global card objects list.
+        /// AddBackgrounds is a method that adds all main.cards to the global card objects list.
         /// </summary>
         private void AddCards()
         {
@@ -293,12 +297,12 @@ namespace Memory
             string frontBg = "";
             string backBg = "";
 
-            foreach(var pos in positions)
+            foreach(var pos in main.positions)
             {
                 if(duplicateId > GetGridSize() / 2)
                     duplicateId = 1;
 
-                foreach(var bg in backgrounds)
+                foreach(var bg in main.backgrounds)
                 {
                     if(duplicateId == bg.Id) 
                     {
@@ -306,7 +310,7 @@ namespace Memory
                         backBg = bg.Back;
                     }
                 }
-                cards.Add(new Card(id, duplicateId, CARDS_START_STATE_FLIPPED, pos.X, pos.Y, $"Card {duplicateId} [{pos.X} - {pos.Y}] ({positions.Count})", CARDS_START_STATE_FLIPPED, frontBg, backBg));
+                main.cards.Add(new Card(id, duplicateId, CARDS_START_STATE_FLIPPED, pos.X, pos.Y, $"Card {duplicateId} [{pos.X} - {pos.Y}] ({main.positions.Count})", CARDS_START_STATE_FLIPPED, frontBg, backBg));
                 duplicateId++;
                 id++;
             }
@@ -328,8 +332,8 @@ namespace Memory
         /// </summary>
         private void ClearGrid()
         {
-            positions.Clear();
-            cards.Clear();
+            main.positions.Clear();
+            main.cards.Clear();
             GameGrid.RowDefinitions.Clear();
             GameGrid.ColumnDefinitions.Clear();
         }
@@ -358,14 +362,10 @@ namespace Memory
 
         private void LoadGameGrid()
         {
-            //GetAndSetGridSize
-            //GetBackgrounds
-            //GetPositions
-            //GetCards
-            //main.Title = loaded.ToString();
-            //SetCards();
-            //get grid cols from loaded file
-            //CreateGrid(cols, rows);
+            ClearGrid();
+            SetGridSize(main.currentGameColumns, main.currentGameRows);
+            SetCards();
+            CreateGrid(main.currentGameColumns, main.currentGameRows);
             //SetGridOptionValue();
         }
 
@@ -374,7 +374,6 @@ namespace Memory
         /// </summary>
         /// <param name="cols"></param>
         /// <param name="rows"></param>
-        /// <param name="loaded"></param>
         public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
@@ -444,7 +443,7 @@ namespace Memory
         /// <returns>Card Object</returns>
         private Card GetCardById(int id)
         {
-            return cards.Where(c => c.Id == id).ToList().First();
+            return main.cards.Where(c => c.Id == id).ToList().First();
         }
 
         /// <summary>
@@ -479,32 +478,32 @@ namespace Memory
                 SetCards();
             }
 
-            if (GetFlippedCards().Count == cards.Count)
+            if (GetFlippedCards().Count == main.cards.Count)
             {
                 NavigationService.Navigate(new HighScore());
             }
         }
 
         /// <summary>
-        /// GetActiveCards is a method that return all active cards.
+        /// GetActiveCards is a method that return all active main.cards.
         /// </summary>
         /// <returns>Card Object List</returns>
         private List<Card> GetActiveCards()
         {
-            return cards.Where(c => c.Active == true).ToList();
+            return main.cards.Where(c => c.Active == true).ToList();
         }
 
         /// <summary>
-        /// GetFlippedCards is a method that returns aall flipped cards.
+        /// GetFlippedCards is a method that returns aall flipped main.cards.
         /// </summary>
         /// <returns>Card Object List</returns>
         private List<Card> GetFlippedCards()
         {
-            return cards.Where(c => c.Flipped == true).ToList();
+            return main.cards.Where(c => c.Flipped == true).ToList();
         }
 
         /// <summary>
-        /// CompareCards is a method that compares duplicateId of two cards.
+        /// CompareCards is a method that compares duplicateId of two main.cards.
         /// </summary>
         private void CompareCards()
         {
@@ -547,8 +546,8 @@ namespace Memory
         private void SetActiveCard(Card card, bool active)
         {
             card.Active = active;
-            cards.Remove(card);
-            cards.Add(card);
+            main.cards.Remove(card);
+            main.cards.Add(card);
         }
     }
 }
