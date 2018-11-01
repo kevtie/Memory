@@ -36,6 +36,8 @@ namespace Memory
 
         private const int WON_GAME_TRANSITION_DELAY = 2000;
         private const int CARD_COMPARE_DELAY = 1500;
+
+        private const bool CARD_COMPARE_DEACTIVATE = false;
         //Misschien wie gewonnen heeft popup
 
         private Player currentPlayer;
@@ -393,14 +395,14 @@ namespace Memory
         {
             ClearGrid();
             ClearGameData();
-            SetGridSize(cols, rows);
             ResetScoresAndTurns();
+            SetGridSize(cols, rows);
+            CreateGrid(cols, rows);
             AddPositions(cols, rows);
             AddBackgrounds();
             RandomizePositions();
             AddCards();
             SetCards();
-            CreateGrid(cols, rows);
             SetGridOptionValue();
             SetTurn(GetPlayerById(START_PLAYER));
         }
@@ -542,8 +544,17 @@ namespace Memory
         {
             if(cardOne.DuplicateId == cardTwo.DuplicateId)
             {
-                SetActiveCard(cardOne, false);
-                SetActiveCard(cardTwo, false);
+                if (CARD_COMPARE_DEACTIVATE)
+                {
+                    SetActiveCard(cardOne, false);
+                    SetActiveCard(cardTwo, false);
+                }
+                else
+                {
+                    main.cards.Remove(cardOne);
+                    main.cards.Remove(cardTwo);
+                }
+                
                 SetScore(GetActivePlayer());
                 SetTurn(currentPlayer);
             }

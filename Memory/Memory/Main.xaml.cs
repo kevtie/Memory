@@ -133,10 +133,14 @@ namespace Memory
         private void GetAndSetGridSize()
         {
             XDocument doc = XDocument.Load("Memory.sav");
+
             XElement grid = doc.Element("Main").Element("Grid");
 
-            currentGameColumns = Convert.ToInt32(grid.Element("Columns").Value);
-            currentGameRows = Convert.ToInt32(grid.Element("Rows").Value);
+            if (grid.Element("Columns") != null && grid.Element("Rows") != null)
+            {
+                currentGameColumns = Convert.ToInt32(grid.Element("Columns").Value);
+                currentGameRows = Convert.ToInt32(grid.Element("Rows").Value);
+            }
         }
 
         /// <summary>
@@ -144,38 +148,46 @@ namespace Memory
         /// </summary>
         private void GetPlayersFromSaveFile()
         {
-            players.Clear();
-
             XDocument doc = XDocument.Load("Memory.sav");
-            foreach (XElement player in doc.Element("Main").Element("Players").Elements())
-            {
-                int id = Convert.ToInt32(player.Element("Id").Value);
-                bool turn = Convert.ToBoolean(player.Element("Turn").Value);
-                int score = Convert.ToInt32(player.Element("Score").Value);
-                string name = player.Element("Name").Value;
 
-                players.Add(new Player(id, turn, score, name));
+            if (doc.Element("Main").Element("Players").Elements() != null)
+            {
+                players.Clear();
+
+                foreach (XElement player in doc.Element("Main").Element("Players").Elements())
+                {
+                    int id = Convert.ToInt32(player.Element("Id").Value);
+                    bool turn = Convert.ToBoolean(player.Element("Turn").Value);
+                    int score = Convert.ToInt32(player.Element("Score").Value);
+                    string name = player.Element("Name").Value;
+
+                    players.Add(new Player(id, turn, score, name));
+                }
             }
         }
 
         private void GetCardsFromSaveFile()
         {
-            cards.Clear();
-
             XDocument doc = XDocument.Load("Memory.sav");
-            foreach (XElement card in doc.Element("Main").Element("Cards").Elements())
-            {
-                int id = Convert.ToInt32(card.Element("Id").Value);
-                int dId = Convert.ToInt32(card.Element("DuplicateId").Value);
-                bool active = Convert.ToBoolean(card.Element("Active").Value);
-                int column = Convert.ToInt32(card.Element("Column").Value);
-                int row = Convert.ToInt32(card.Element("Row").Value);
-                string title = card.Element("Title").Value;
-                bool flipped = Convert.ToBoolean(card.Element("Flipped").Value);
-                string fBg = card.Element("FrontBackground").Value;
-                string bBg = card.Element("BackBackground").Value;
 
-                cards.Add(new Card(id, dId, active, column, row, title, flipped, fBg, bBg));
+            if (doc.Element("Main").Element("Cards").Elements() != null)
+            {
+                cards.Clear();
+
+                foreach (XElement card in doc.Element("Main").Element("Cards").Elements())
+                {
+                    int id = Convert.ToInt32(card.Element("Id").Value);
+                    int dId = Convert.ToInt32(card.Element("DuplicateId").Value);
+                    bool active = Convert.ToBoolean(card.Element("Active").Value);
+                    int column = Convert.ToInt32(card.Element("Column").Value);
+                    int row = Convert.ToInt32(card.Element("Row").Value);
+                    string title = card.Element("Title").Value;
+                    bool flipped = Convert.ToBoolean(card.Element("Flipped").Value);
+                    string fBg = card.Element("FrontBackground").Value;
+                    string bBg = card.Element("BackBackground").Value;
+
+                    cards.Add(new Card(id, dId, active, column, row, title, flipped, fBg, bBg));
+                }
             }
         }
 
@@ -260,10 +272,17 @@ namespace Memory
         /// </summary>
         private void LoadSaveFile()
         {
-            GetPlayersFromSaveFile();
-            GetCardsFromSaveFile();
-            GetAndSetGridSize();
-            MainFrame.Content = new Game(true);
+            if (File.Exists("Memory.sav"))
+            {
+                GetPlayersFromSaveFile();
+                GetCardsFromSaveFile();
+                GetAndSetGridSize();
+
+                if (players.Any() && cards.Any() && currentGameColumns > 0 && currentGameRows > 0)
+                {
+                    MainFrame.Content = new Game(true);
+                }
+            }
         }
 
         /// <summary>
