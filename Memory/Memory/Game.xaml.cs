@@ -34,6 +34,10 @@ namespace Memory
 
         private const int START_PLAYER = 1;
 
+        private const int WON_GAME_TRANSITION_DELAY = 2000;
+        private const int CARD_COMPARE_DELAY = 1500;
+        //Misschien wie gewonnen heeft popup
+
         private Player currentPlayer;
 
         private List<Position> positions = new List<Position>();
@@ -476,23 +480,40 @@ namespace Memory
         /// <param name="e"></param>
         private void Card_Click(object sender, MouseButtonEventArgs e)
         {
-            Page page = new Page();
             Image image = (Image)sender;
+            Card card = GetCardById(Convert.ToInt32(image.Name.Remove(0, 1)));
 
-            int id = Convert.ToInt32(image.Name.Remove(0, 1));
-
-            Card card = GetCardById(id);
-
-            if(!card.Flipped)
+            if (!card.Flipped)
             {
                 FlipCard(card);
-                CompareCards();
+
+                List<Card> activeCards = GetActiveCards();
+
                 SetCards();
+
+                if (activeCards.Count == 2)
+                {
+                    CompareCards(activeCards.ElementAt(0), activeCards.ElementAt(1));
+                }
+
+                Task.Delay(CARD_COMPARE_DELAY).ContinueWith(_ =>
+                {
+                    main.Dispatcher.Invoke(() =>
+                    {
+                        SetCards();
+                    });
+                });
             }
 
             if (GetFlippedCards().Count == main.cards.Count)
             {
-                NavigationService.Navigate(new HighScore());
+                Task.Delay(WON_GAME_TRANSITION_DELAY).ContinueWith(_ =>
+                {
+                    main.Dispatcher.Invoke(() =>
+                    {
+                        NavigationService.Navigate(new HighScore());
+                    });
+                });
             }
         }
 
@@ -517,37 +538,29 @@ namespace Memory
         /// <summary>
         /// CompareCards is a method that compares duplicateId of two main.cards.
         /// </summary>
-        private void CompareCards()
+        private void CompareCards(Card cardOne, Card cardTwo)
         {
-            List<Card> activeCards = GetActiveCards();
-
-            if(activeCards.Count > 2)
+            if(cardOne.DuplicateId == cardTwo.DuplicateId)
             {
-                Card card1 = activeCards.ElementAt(0);
-                Card card2 = activeCards.ElementAt(1);
-
-                if(card1.DuplicateId == card2.DuplicateId)
-                {
-                    SetActiveCard(card1, false);
-                    SetActiveCard(card2, false);
-                    SetScore(GetActivePlayer());
-                    SetTurn(currentPlayer);
-                }
-                else
-                {
-                    FlipCard(card1);
-                    FlipCard(card2);
-                    SetScore(GetActivePlayer(), CARD_SCORE_NEGATIVE_VALUE);
-                    SetTurn(currentPlayer, false);
-
-                    if(currentPlayer.Id >= main.players.Count)
-                        SetTurn(GetPlayerById(START_PLAYER));
-                    else
-                        SetTurn(GetPlayerById(currentPlayer.Id + 1));
-                }
-
-                InitializeGameBoard();
+                SetActiveCard(cardOne, false);
+                SetActiveCard(cardTwo, false);
+                SetScore(GetActivePlayer());
+                SetTurn(currentPlayer);
             }
+            else
+            {
+                FlipCard(cardOne);
+                FlipCard(cardTwo);
+                SetScore(GetActivePlayer(), CARD_SCORE_NEGATIVE_VALUE);
+                SetTurn(currentPlayer, false);
+
+                if(currentPlayer.Id >= main.players.Count)
+                    SetTurn(GetPlayerById(START_PLAYER));
+                else
+                    SetTurn(GetPlayerById(currentPlayer.Id + 1));
+            }
+
+            InitializeGameBoard();
         }
 
         /// <summary>
