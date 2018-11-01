@@ -27,9 +27,8 @@ namespace Memory
         public int currentGameColumns;
         public int currentGameRows;
 
-        public List<Position> positions = new List<Position>();
+
         public List<Card> cards = new List<Card>();
-        public List<Background> backgrounds = new List<Background>();
         public List<Player> players = new List<Player>();
 
         /// <summary>
@@ -122,8 +121,6 @@ namespace Memory
             XDocument doc = new XDocument(new XElement("Main"));
             doc.Root.Add(new XElement("Players"));
             doc.Root.Add(new XElement("Cards"));
-            doc.Root.Add(new XElement("Positions"));
-            doc.Root.Add(new XElement("Backgrounds"));
             doc.Root.Add(new XElement("Grid"));
             doc.Save("Memory.sav");
         }
@@ -152,12 +149,33 @@ namespace Memory
             XDocument doc = XDocument.Load("Memory.sav");
             foreach (XElement player in doc.Element("Main").Element("Players").Elements())
             {
-                bool playerTurn = Convert.ToBoolean(player.Element("Turn").Value);
-                string playerName = player.Element("Name").Value;
-                int playerScore = Convert.ToInt32(player.Element("Score").Value);
-                int playerId = Convert.ToInt32(player.Element("Id").Value);
+                int id = Convert.ToInt32(player.Element("Id").Value);
+                bool turn = Convert.ToBoolean(player.Element("Turn").Value);
+                int score = Convert.ToInt32(player.Element("Score").Value);
+                string name = player.Element("Name").Value;
 
-                players.Add(new Player(playerId, playerTurn, playerScore, playerName));
+                players.Add(new Player(id, turn, score, name));
+            }
+        }
+
+        private void GetCardsFromSaveFile()
+        {
+            cards.Clear();
+
+            XDocument doc = XDocument.Load("Memory.sav");
+            foreach (XElement card in doc.Element("Main").Element("Cards").Elements())
+            {
+                int id = Convert.ToInt32(card.Element("Id").Value);
+                int dId = Convert.ToInt32(card.Element("DuplicateId").Value);
+                bool active = Convert.ToBoolean(card.Element("Active").Value);
+                int column = Convert.ToInt32(card.Element("Column").Value);
+                int row = Convert.ToInt32(card.Element("Row").Value);
+                string title = card.Element("Title").Value;
+                bool flipped = Convert.ToBoolean(card.Element("Flipped").Value);
+                string fBg = card.Element("FrontBackground").Value;
+                string bBg = card.Element("BackBackground").Value;
+
+                cards.Add(new Card(id, dId, active, column, row, title, flipped, fBg, bBg));
             }
         }
 
@@ -171,8 +189,9 @@ namespace Memory
                    new XElement("Id", card.Id),
                    new XElement("DuplicateId", card.DuplicateId),
                    new XElement("Active", card.Active),
-                   new XElement("Row", card.Row),
                    new XElement("Column", card.Column),
+                   new XElement("Row", card.Row),
+                   new XElement("Title", card.Title),
                    new XElement("Flipped", card.Flipped),
                    new XElement("FrontBackground", card.FrontBackground),
                    new XElement("BackBackground", card.BackBackground)
@@ -234,72 +253,6 @@ namespace Memory
             {
                 AddGridSizeToSaveFile(currentGameColumns, currentGameRows);
             }
-
-            //if (Convert.ToBoolean(cards.Count))
-            //{
-            //    foreach (Card player in players)
-            //        AddPlayerToSaveFile(player);
-            //}
-
-            //if (Convert.ToBoolean(players.Count))
-            //{
-            //    foreach (Player player in players)
-            //        AddPlayerToSaveFile(player);
-            //}
-
-            //if (Convert.ToBoolean(players.Count))
-            //{
-            //    foreach (Player player in players)
-            //        AddPlayerToSaveFile(player);
-            //}
-            //XDocument doc = XDocument.Load("Memory.sav");
-            //XElement players = doc.Element("Players");
-            //XElement cards = doc.Element("Cards");
-            //XElement positions = doc.Element("Positions");
-            //XElement backgrounds = doc.Element("Backgrounds");
-
-            //players.Add(
-            //    new XElement("Player",
-            //        new XElement("Id", player.Id),
-            //        new XElement("Score", player.Score),
-            //        new XElement("Turn", player.Turn),
-            //        new XElement("Name", player.Name)
-            //    //new XElement("Status", player.Status)
-            //    )
-            //);
-
-            //cards.Add(
-            //    new XElement("Player",
-            //        new XElement("Id", card.Id),
-            //        new XElement("DuplicateId", card.DuplicateId),
-            //        new XElement("Active", card.Active)
-            //        new XElement("Row", card.Row)
-            //        new XElement("Column", card.Column)
-            //        new XElement("Flipped", card.Flipped)
-            //        new XElement("FrontBackground", card.frontBackground)
-            //        new XElement("BackBackground", card.backBackground)
-            //    )
-            //);
-
-            //players.Add(
-            //    new XElement("Player",
-            //        new XElement("Id", player.Id),
-            //        new XElement("Score", player.Score),
-            //        new XElement("Turn", player.Turn),
-            //        new XElement("Name", player.Name)
-            //    //new XElement("Status", player.Status)
-            //    )
-            //);
-
-            //players.Add(
-            //    new XElement("Player",
-            //        new XElement("Id", player.Id),
-            //        new XElement("Score", player.Score),
-            //        new XElement("Turn", player.Turn),
-            //        new XElement("Name", player.Name)
-            //    //new XElement("Status", player.Status)
-            //    )
-            //);
         }
 
         /// <summary>
@@ -308,6 +261,7 @@ namespace Memory
         private void LoadSaveFile()
         {
             GetPlayersFromSaveFile();
+            GetCardsFromSaveFile();
             GetAndSetGridSize();
             MainFrame.Content = new Game(true);
         }

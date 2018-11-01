@@ -36,6 +36,9 @@ namespace Memory
 
         private Player currentPlayer;
 
+        private List<Position> positions = new List<Position>();
+        private List<Background> backgrounds = new List<Background>();
+
         private Main main = ((Main)Application.Current.MainWindow);
 
         /// <summary>
@@ -56,6 +59,7 @@ namespace Memory
             }
             else
             {
+                SetCurrentPlayer(GetActivePlayer());
                 LoadGameGrid();
             }
 
@@ -201,11 +205,11 @@ namespace Memory
         private void RandomizePositions()
         {
             Random rng = new Random();
-            main.positions = main.positions.OrderBy(x => rng.Next()).ToList();
+            positions = positions.OrderBy(x => rng.Next()).ToList();
         }
 
         /// <summary>
-        /// SetCard is a method that adds and main.positions a card object on the GameGrid.
+        /// SetCard is a method that adds and positions a card object on the GameGrid.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="duplicateId"></param>
@@ -258,7 +262,7 @@ namespace Memory
         }
 
         /// <summary>
-        /// AddPositions is a method that adds all main.positions to the global position objects list.
+        /// AddPositions is a method that adds all positions to the global position objects list.
         /// </summary>
         /// <param name="cols"></param>
         /// <param name="rows"></param>
@@ -268,23 +272,18 @@ namespace Memory
             {
                 for(int col = 0; col < cols; col++) 
                 {
-                    main.positions.Add(new Position(row, col));
+                    positions.Add(new Position(row, col));
                 }
             }
         }
 
-        private void SetPositions()
-        {
-            //main.main.positions
-        }
-
         /// <summary>
-        /// AddBackgrounds is a method that adds all main.backgrounds to the global background objects list.
+        /// AddBackgrounds is a method that adds all backgrounds to the global background objects list.
         /// </summary>
         private void AddBackgrounds()
         {
             for(int i = 1; i <= GetGridSize() / 2; i++)
-                main.backgrounds.Add(new Background(i, "Resources/card_back.jpg", $"Resources/{i}.jpg"));
+                backgrounds.Add(new Background(i, "Resources/card_back.jpg", $"Resources/{i}.jpg"));
         }
 
         /// <summary>
@@ -297,12 +296,12 @@ namespace Memory
             string frontBg = "";
             string backBg = "";
 
-            foreach(var pos in main.positions)
+            foreach(var pos in positions)
             {
                 if(duplicateId > GetGridSize() / 2)
                     duplicateId = 1;
 
-                foreach(var bg in main.backgrounds)
+                foreach(var bg in backgrounds)
                 {
                     if(duplicateId == bg.Id) 
                     {
@@ -310,7 +309,8 @@ namespace Memory
                         backBg = bg.Back;
                     }
                 }
-                main.cards.Add(new Card(id, duplicateId, CARDS_START_STATE_FLIPPED, pos.X, pos.Y, $"Card {duplicateId} [{pos.X} - {pos.Y}] ({main.positions.Count})", CARDS_START_STATE_FLIPPED, frontBg, backBg));
+
+                main.cards.Add(new Card(id, duplicateId, CARDS_START_STATE_FLIPPED, pos.X, pos.Y, $"Card {duplicateId} [{pos.X} - {pos.Y}] ({positions.Count})", CARDS_START_STATE_FLIPPED, frontBg, backBg));
                 duplicateId++;
                 id++;
             }
@@ -332,10 +332,14 @@ namespace Memory
         /// </summary>
         private void ClearGrid()
         {
-            main.positions.Clear();
-            main.cards.Clear();
             GameGrid.RowDefinitions.Clear();
             GameGrid.ColumnDefinitions.Clear();
+        }
+
+        private void ClearGameData()
+        {
+            positions.Clear();
+            main.cards.Clear();
         }
 
         /// <summary>
@@ -377,6 +381,7 @@ namespace Memory
         public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
+            ClearGameData();
             SetGridSize(cols, rows);
             ResetScoresAndTurns();
             AddPositions(cols, rows);
