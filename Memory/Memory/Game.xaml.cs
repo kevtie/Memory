@@ -48,14 +48,18 @@ namespace Memory
         /// <summary>
         /// Game is a method that gets excecuted when a new Game object is created.
         /// </summary>
-        public Game()
+        public Game(bool loaded = false)
         {
             InitializeComponent();
 
             if (main.players.Count > 1)
                 SetGridSize(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
 
-            InitializeGameGrid(currentGameColumns, currentGameRows);
+            if (loaded)
+                LoadGameGrid();
+            else
+                InitializeGameGrid(currentGameColumns, currentGameRows);
+
             InitializeGameBoard();
         }
 
@@ -352,16 +356,30 @@ namespace Memory
             SetActiveCard(card, card.Flipped);
         }
 
+        private void LoadGameGrid()
+        {
+            //GetAndSetGridSize
+            //GetBackgrounds
+            //GetPositions
+            //GetCards
+            //main.Title = loaded.ToString();
+            //SetCards();
+            //get grid cols from loaded file
+            //CreateGrid(cols, rows);
+            //SetGridOptionValue();
+        }
+
         /// <summary>
         /// InitializeGameGrid is a method that activates all methods for initializing the GameGrid.
         /// </summary>
         /// <param name="cols"></param>
         /// <param name="rows"></param>
+        /// <param name="loaded"></param>
         public void InitializeGameGrid(int cols, int rows)
         {
             ClearGrid();
-            ResetScoresAndTurns();
             SetGridSize(cols, rows);
+            ResetScoresAndTurns();
             AddPositions(cols, rows);
             AddBackgrounds();
             RandomizePositions();

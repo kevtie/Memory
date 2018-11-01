@@ -105,11 +105,7 @@ namespace Memory
             if (!File.Exists("Memory.sav"))
                 CreateSaveFile();
 
-            if (Convert.ToBoolean(players.Count))
-            {
-                foreach(Player player in players)
-                    AddPlayerToSaveFile(player);
-            }
+            AddGameData();
         }
 
         /// <summary>
@@ -128,14 +124,25 @@ namespace Memory
         }
 
         /// <summary>
-        /// GetGameData is a method that gets the data from memory.sav file and puts them into global variables.
+        /// GetPlayersFromSaveFile is a method that gets the data from memory.sav file and puts them into global variables.
         /// </summary>
-        private void GetGameData()
+        private void GetPlayersFromSaveFile()
         {
+            players.Clear();
 
+            XDocument doc = XDocument.Load("Memory.sav");
+            foreach (XElement player in doc.Element("Players").Elements())
+            {
+                bool playerTurn = Convert.ToBoolean(player.Element("Turn").Value);
+                string playerName = player.Element("Name").Value;
+                int playerScore = Convert.ToInt32(player.Element("Score").Value);
+                int playerId = Convert.ToInt32(player.Element("Id").Value);
+
+                players.Add(new Player(playerId, playerTurn, playerScore, playerName));
+            }
         }
 
-        private void AddCardsToSaveFile(Card card)
+        private void AddCardToSaveFile(Card card)
         {
             XDocument doc = XDocument.Load("Memory.sav");
             XElement cards = doc.Element("Cards");
@@ -177,6 +184,29 @@ namespace Memory
         /// </summary>
         private void AddGameData()
         {
+            if (Convert.ToBoolean(players.Count))
+            {
+                foreach (Player player in players)
+                    AddPlayerToSaveFile(player);
+            }
+
+            //if (Convert.ToBoolean(cards.Count))
+            //{
+            //    foreach (Card player in players)
+            //        AddPlayerToSaveFile(player);
+            //}
+
+            //if (Convert.ToBoolean(players.Count))
+            //{
+            //    foreach (Player player in players)
+            //        AddPlayerToSaveFile(player);
+            //}
+
+            //if (Convert.ToBoolean(players.Count))
+            //{
+            //    foreach (Player player in players)
+            //        AddPlayerToSaveFile(player);
+            //}
             //XDocument doc = XDocument.Load("Memory.sav");
             //XElement players = doc.Element("Players");
             //XElement cards = doc.Element("Cards");
@@ -232,7 +262,8 @@ namespace Memory
         /// </summary>
         private void LoadSaveFile()
         {
-
+            GetPlayersFromSaveFile();
+            MainFrame.Content = new Game(true);
         }
 
         /// <summary>
