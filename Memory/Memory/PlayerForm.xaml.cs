@@ -72,10 +72,13 @@ namespace Memory
         /// <param name="e"></param>
         private void Button_ClickAdd(object sender, RoutedEventArgs e)
         {
-            SetPlayerData(new Player(playerCounter, false, 0, UserInput.Text));
-            playerCounter++;
-            SetButtons();
-            UserInput.Clear();
+            if(UserInput.Text.Length > 0)
+            {
+                SetPlayerData(new Player(playerCounter, false, 0, UserInput.Text));
+                playerCounter++;
+                SetButtons();
+                UserInput.Clear();
+            }
         }
 
         /// <summary>
@@ -87,7 +90,6 @@ namespace Memory
         {
             TextBlock nameBlock = new TextBlock();
             nameBlock.Text = $"Speler {player.Id}: {player.Name}";
-
             main.players.Add(player);
             ActivePlayerList.Items.Add(nameBlock);
         }
