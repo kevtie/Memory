@@ -99,10 +99,17 @@ namespace Memory
         /// <param name="e"></param>
         private void Button_ClickSave(object sender, RoutedEventArgs e)
         {
+            if (File.Exists("Memory.sav"))
+                RemoveSaveFile();
+
             if (!File.Exists("Memory.sav"))
                 CreateSaveFile();
 
-            ChangeSaveFile();
+            if (Convert.ToBoolean(players.Count))
+            {
+                foreach(Player player in players)
+                    AddPlayerToSaveFile(player);
+            }
         }
 
         /// <summary>
@@ -111,16 +118,113 @@ namespace Memory
         private void CreateSaveFile()
         {
             new XDocument(
-                new XElement("Players", "Cards", "Positions", "Backgrounds")
+                new XElement("Players")
             ).Save("Memory.sav");
         }
 
+        private void RemoveSaveFile()
+        {
+            File.Delete("Memory.sav");
+        }
+
         /// <summary>
-        /// ChangeSaveFile is a method that changes the memory.sav file.
+        /// GetGameData is a method that gets the data from memory.sav file and puts them into global variables.
         /// </summary>
-        private void ChangeSaveFile()
+        private void GetGameData()
         {
 
+        }
+
+        private void AddCardsToSaveFile(Card card)
+        {
+            XDocument doc = XDocument.Load("Memory.sav");
+            XElement cards = doc.Element("Cards");
+
+            cards.Add(
+               new XElement("Player",
+                   new XElement("Id", card.Id),
+                   new XElement("DuplicateId", card.DuplicateId),
+                   new XElement("Active", card.Active),
+                   new XElement("Row", card.Row),
+                   new XElement("Column", card.Column),
+                   new XElement("Flipped", card.Flipped),
+                   new XElement("FrontBackground", card.FrontBackground),
+                   new XElement("BackBackground", card.BackBackground)
+               )
+           );
+        }
+
+        private void AddPlayerToSaveFile(Player player)
+        {
+            XDocument doc = XDocument.Load("Memory.sav");
+            XElement players = doc.Element("Players");
+
+            players.Add(
+                new XElement("Player",
+                    new XElement("Id", player.Id),
+                    new XElement("Score", player.Score),
+                    new XElement("Turn", player.Turn),
+                    new XElement("Name", player.Name)
+                    //new XElement("Status", player.Status)
+                )
+            );
+
+            doc.Save("Memory.sav");
+        }
+
+        /// <summary>
+        /// AddGameData is a method that changes the memory.sav file.
+        /// </summary>
+        private void AddGameData()
+        {
+            //XDocument doc = XDocument.Load("Memory.sav");
+            //XElement players = doc.Element("Players");
+            //XElement cards = doc.Element("Cards");
+            //XElement positions = doc.Element("Positions");
+            //XElement backgrounds = doc.Element("Backgrounds");
+
+            //players.Add(
+            //    new XElement("Player",
+            //        new XElement("Id", player.Id),
+            //        new XElement("Score", player.Score),
+            //        new XElement("Turn", player.Turn),
+            //        new XElement("Name", player.Name)
+            //    //new XElement("Status", player.Status)
+            //    )
+            //);
+
+            //cards.Add(
+            //    new XElement("Player",
+            //        new XElement("Id", card.Id),
+            //        new XElement("DuplicateId", card.DuplicateId),
+            //        new XElement("Active", card.Active)
+            //        new XElement("Row", card.Row)
+            //        new XElement("Column", card.Column)
+            //        new XElement("Flipped", card.Flipped)
+            //        new XElement("FrontBackground", card.frontBackground)
+            //        new XElement("BackBackground", card.backBackground)
+            //    )
+            //);
+
+            //players.Add(
+            //    new XElement("Player",
+            //        new XElement("Id", player.Id),
+            //        new XElement("Score", player.Score),
+            //        new XElement("Turn", player.Turn),
+            //        new XElement("Name", player.Name)
+            //    //new XElement("Status", player.Status)
+            //    )
+            //);
+
+            //players.Add(
+            //    new XElement("Player",
+            //        new XElement("Id", player.Id),
+            //        new XElement("Score", player.Score),
+            //        new XElement("Turn", player.Turn),
+            //        new XElement("Name", player.Name)
+            //    //new XElement("Status", player.Status)
+            //    )
+            //);
         }
 
         /// <summary>
