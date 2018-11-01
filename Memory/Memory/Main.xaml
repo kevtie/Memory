@@ -22,7 +22,7 @@
                                 <Image Source="Resources/optionbutton.png"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Save" Click="Button_Clicksave">
+                        <MenuItem Header="Save" Click="Button_ClickSave">
                             <MenuItem.Icon>
                                 <Image Source="Resources/savebutton.png" />
                             </MenuItem.Icon>

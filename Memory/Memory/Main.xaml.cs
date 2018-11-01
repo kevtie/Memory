@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace Memory
 {
@@ -91,14 +92,17 @@ namespace Memory
         }
 
         /// <summary>
-        /// Button_Clicksave is a button action that saves the current state of the game.
+        /// Button_ClickSave is a button action that saves the current state of the game.
         /// Under construction.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Clicksave(object sender, RoutedEventArgs e)
+        private void Button_ClickSave(object sender, RoutedEventArgs e)
         {
-            CreateSaveFile();
+            if (!File.Exists("Memory.sav"))
+                CreateSaveFile();
+
+            ChangeSaveFile();
         }
 
         /// <summary>
@@ -106,7 +110,17 @@ namespace Memory
         /// </summary>
         private void CreateSaveFile()
         {
-            
+            new XDocument(
+                new XElement("Players", "Cards", "Positions", "Backgrounds")
+            ).Save("Memory.sav");
+        }
+
+        /// <summary>
+        /// ChangeSaveFile is a method that changes the memory.sav file.
+        /// </summary>
+        private void ChangeSaveFile()
+        {
+
         }
 
         /// <summary>
