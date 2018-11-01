@@ -22,6 +22,7 @@ namespace Memory
     public partial class Game : Page
     {
         private const bool CARDS_START_STATE_FLIPPED = false;
+        private const bool CARD_COMPARE_DEACTIVATE = true;
 
         private const int FIRST_GAME_GRID_ROWS = 4;
         private const int FIRST_GAME_GRID_COLUMNS = 4;
@@ -37,7 +38,6 @@ namespace Memory
         private const int WON_GAME_TRANSITION_DELAY = 2000;
         private const int CARD_COMPARE_DELAY = 1500;
 
-        private const bool CARD_COMPARE_DEACTIVATE = false;
         //Misschien wie gewonnen heeft popup
 
         private Player currentPlayer;
@@ -381,8 +381,8 @@ namespace Memory
         {
             ClearGrid();
             SetGridSize(main.currentGameColumns, main.currentGameRows);
-            SetCards();
             CreateGrid(main.currentGameColumns, main.currentGameRows);
+            SetCards();
             SetGridOptionValue();
         }
 
