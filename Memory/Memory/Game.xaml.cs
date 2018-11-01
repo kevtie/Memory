@@ -41,12 +41,16 @@ namespace Memory
 
         private Main main = ((Main)Application.Current.MainWindow);
 
+        private bool gameGridOptionsNoise = false;
+
         /// <summary>
         /// Game is a method that gets excecuted when a new Game object is created.
         /// </summary>
         public Game(bool loaded = false)
         {
             InitializeComponent();
+
+            gameGridOptionsNoise = true;
 
             if(!loaded)
             {
@@ -64,13 +68,15 @@ namespace Memory
             }
 
             InitializeGameBoard();
+
+            gameGridOptionsNoise = false;
         }
 
         /// <summary>
         /// SetGridOptionValue is a method that sets GameGridOptions.Text to current grid data.
         /// </summary>
         private void SetGridOptionValue()
-        {
+        {   
             GameGridOptions.Text = $"{main.currentGameColumns}x{main.currentGameRows}";
         }
 
@@ -177,6 +183,7 @@ namespace Memory
         /// <param name="e"></param>
         private void GameGridOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (gameGridOptionsNoise) return;
             HandleGameGridOptions();
         }
 
@@ -370,7 +377,7 @@ namespace Memory
             SetGridSize(main.currentGameColumns, main.currentGameRows);
             SetCards();
             CreateGrid(main.currentGameColumns, main.currentGameRows);
-            //SetGridOptionValue();
+            SetGridOptionValue();
         }
 
         /// <summary>
