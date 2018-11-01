@@ -24,6 +24,9 @@ namespace Memory
     /// </summary>
     public partial class Main : Window  
     {
+        public int currentGameColumns;
+        public int currentGameRows;
+
         public List<Player> players = new List<Player>();
 
         /// <summary>
@@ -113,9 +116,13 @@ namespace Memory
         /// </summary>
         private void CreateSaveFile()
         {
-            new XDocument(
-                new XElement("Players")
-            ).Save("Memory.sav");
+            XDocument doc = new XDocument(new XElement("Main"));
+            doc.Root.Add(new XElement("Players"));
+            doc.Root.Add(new XElement("Cards"));
+            doc.Root.Add(new XElement("Positions"));
+            doc.Root.Add(new XElement("Backgrounds"));
+            doc.Root.Add(new XElement("Grid"));
+            doc.Save("Memory.sav");
         }
 
         private void RemoveSaveFile()
@@ -131,7 +138,7 @@ namespace Memory
             players.Clear();
 
             XDocument doc = XDocument.Load("Memory.sav");
-            foreach (XElement player in doc.Element("Players").Elements())
+            foreach (XElement player in doc.Element("Main").Element("Players").Elements())
             {
                 bool playerTurn = Convert.ToBoolean(player.Element("Turn").Value);
                 string playerName = player.Element("Name").Value;
@@ -161,10 +168,25 @@ namespace Memory
            );
         }
 
+        private void AddGridSizeToSaveFile(int cols, int rows)
+        {
+            XDocument doc = XDocument.Load("Memory.sav");
+            XElement grid = doc.Element("Main").Element("Grid");
+
+            grid.Add(
+                new XElement("Grid",
+                    new XElement("Columns", cols),
+                    new XElement("Rows", rows)
+                )
+            );
+
+            doc.Save("Memory.sav");
+        }
+
         private void AddPlayerToSaveFile(Player player)
         {
             XDocument doc = XDocument.Load("Memory.sav");
-            XElement players = doc.Element("Players");
+            XElement players = doc.Element("Main").Element("Players");
 
             players.Add(
                 new XElement("Player",
@@ -188,6 +210,11 @@ namespace Memory
             {
                 foreach (Player player in players)
                     AddPlayerToSaveFile(player);
+            }
+
+            if (currentGameColumns > 0 && currentGameRows > 0)
+            {
+                AddGridSizeToSaveFile(currentGameColumns, currentGameRows);
             }
 
             //if (Convert.ToBoolean(cards.Count))

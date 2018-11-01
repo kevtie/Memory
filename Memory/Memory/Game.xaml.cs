@@ -42,8 +42,6 @@ namespace Memory
         private List<Card> cards = new List<Card>();
         private List<Background> backgrounds = new List<Background>();
 
-        private int currentGameColumns = FIRST_GAME_GRID_ROWS;
-        private int currentGameRows = FIRST_GAME_GRID_ROWS;
 
         /// <summary>
         /// Game is a method that gets excecuted when a new Game object is created.
@@ -54,11 +52,13 @@ namespace Memory
 
             if (main.players.Count > 1)
                 SetGridSize(SECOND_GAME_GRID_COLUMNS, SECOND_GAME_GRID_ROWS);
+            else
+                SetGridSize(FIRST_GAME_GRID_COLUMNS, FIRST_GAME_GRID_ROWS);
 
             if (loaded)
                 LoadGameGrid();
             else
-                InitializeGameGrid(currentGameColumns, currentGameRows);
+                InitializeGameGrid(main.currentGameColumns, main.currentGameRows);
 
             InitializeGameBoard();
         }
@@ -68,7 +68,7 @@ namespace Memory
         /// </summary>
         private void SetGridOptionValue()
         {
-            GameGridOptions.Text = $"{currentGameColumns}x{currentGameRows}";
+            GameGridOptions.Text = $"{main.currentGameColumns}x{main.currentGameRows}";
         }
 
         /// <summary>
@@ -184,8 +184,8 @@ namespace Memory
         /// <param name="rows"></param>
         private void SetGridSize(int cols, int rows)
         {
-            currentGameColumns = cols;
-            currentGameRows = rows;
+            main.currentGameColumns = cols;
+            main.currentGameRows = rows;
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Memory
         /// </summary>
         private int GetGridSize()
         {
-            return currentGameColumns * currentGameRows;
+            return main.currentGameColumns * main.currentGameRows;
         }
 
         /// <summary>
@@ -454,7 +454,7 @@ namespace Memory
         /// <param name="e"></param>
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            InitializeGameGrid(currentGameColumns, currentGameRows);
+            InitializeGameGrid(main.currentGameColumns, main.currentGameRows);
             InitializeGameBoard();
         }
 
