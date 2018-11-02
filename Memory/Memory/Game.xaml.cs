@@ -36,7 +36,9 @@ namespace Memory
         private const int START_PLAYER = 1;
 
         private const int WON_GAME_TRANSITION_DELAY = 2000;
-        private const int CARD_COMPARE_DELAY = 1500;
+        private const int CARD_COMPARE_DELAY = 500;
+
+        private bool cardsClickable = true;
 
         //Misschien wie gewonnen heeft popup
 
@@ -236,10 +238,11 @@ namespace Memory
         private void SetCard(int id, int duplicateId, bool active, string title, int column, int row, bool flipped, string frontBackground, string backBackground)
         {
             Image image = new Image();
+            Border border = new Border();
 
             image.Source = SetCardState(flipped, frontBackground, backBackground);
-            image.Margin = new Thickness(2);
             image.Name = "c" + id.ToString();
+            image.Margin = new Thickness(2);
             image.MouseDown += new MouseButtonEventHandler(Card_Click);
 
             Grid.SetColumn(image, column);
@@ -369,7 +372,9 @@ namespace Memory
         /// <param name="card"></param>
         private void FlipCard(Card card)
         {
-            if(!card.Flipped) 
+            cardsClickable = false;
+
+            if (!card.Flipped) 
                 card.Flipped = true;
             else 
                 card.Flipped = false;
@@ -485,7 +490,7 @@ namespace Memory
             Image image = (Image)sender;
             Card card = GetCardById(Convert.ToInt32(image.Name.Remove(0, 1)));
 
-            if (!card.Flipped)
+            if (!card.Flipped && cardsClickable)
             {
                 FlipCard(card);
 
@@ -502,6 +507,7 @@ namespace Memory
                 {
                     main.Dispatcher.Invoke(() =>
                     {
+                        cardsClickable = true;
                         SetCards();
                     });
                 });

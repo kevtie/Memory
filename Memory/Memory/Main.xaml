@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Memory"
         mc:Ignorable="d"
-        Title="Memory Game Start" Height="450" Width="800" WindowState="Maximized">
+        Title="Memory Game Start" Height="450" Width="800" WindowState="Maximized" ResizeMode="NoResize" WindowStyle="None">
     
     <Grid x:Name="MainGrid" Margin="10">
         <Grid.Background>
