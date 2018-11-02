@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Memory Game" Height="700" Width="1500">
     <DockPanel>
-        <StackPanel Margin="10">
+        <StackPanel Margin="5">
             <Button x:Name="Shuffle" Click="Reset_Click" Content="Reset"/>
             <ComboBox x:Name="GameGridOptions" SelectionChanged="GameGridOptions_SelectionChanged">
                 <ComboBoxItem>
@@ -19,7 +19,7 @@
             </ComboBox>
         </StackPanel>
 
-        <StackPanel x:Name="GameBoard" Margin="10">
+        <StackPanel x:Name="GameBoard" Width="250" Margin="5">
         </StackPanel>
 
         <Grid x:Name="GameGrid">

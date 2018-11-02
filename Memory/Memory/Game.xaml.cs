@@ -40,8 +40,6 @@ namespace Memory
 
         private bool cardsClickable = true;
 
-        //Misschien wie gewonnen heeft popup
-
         private Player currentPlayer;
 
         private List<Position> positions = new List<Position>();
@@ -437,25 +435,35 @@ namespace Memory
         /// <param name="rows"></param>
         private void SetPlayers()
         {
-            SolidColorBrush foreground = new SolidColorBrush(Colors.Red);
+            SolidColorBrush playerBlockBorderForeground = Brushes.Black;
+            SolidColorBrush playerBlockBorderBackground = Brushes.Red;
 
             foreach(var player in main.players)
             {
                 if (player.Turn)
-                    foreground = new SolidColorBrush(Colors.Green);
+                {
+                    playerBlockBorderForeground = Brushes.Black;
+                    playerBlockBorderBackground = Brushes.Green;
+                }
 
-                GameBoard.Children.Add(
-                    new TextBlock
-                    {
-                        Text = $"Speler {player.Id}: {player.Name}: Score: {player.Score}",
-                        Margin = new Thickness(2),
-                        Padding = new Thickness(2),
-                        Background = new SolidColorBrush(Colors.White),
-                        Foreground = foreground,
-                        FontSize = 20,
-                        HorizontalAlignment = HorizontalAlignment.Center
-                    }
-                );
+                TextBlock playerBlock = new TextBlock();
+                playerBlock.Text = $"{player.Name}: Score: {player.Score}";
+                playerBlock.Padding = new Thickness(4);
+                playerBlock.Margin = new Thickness(4);
+                playerBlock.Foreground = playerBlockBorderForeground;
+                playerBlock.FontSize = 20;
+                playerBlock.HorizontalAlignment = HorizontalAlignment.Center;
+
+                Border playerBlockBorder = new Border();
+                playerBlockBorder.Background = playerBlockBorderBackground;
+                playerBlockBorder.BorderBrush = Brushes.Black;
+                playerBlockBorder.BorderThickness = new Thickness(1);
+                playerBlockBorder.CornerRadius = new CornerRadius(5);
+                playerBlockBorder.Margin = new Thickness(2);
+
+                playerBlockBorder.Child = playerBlock;
+
+                GameBoard.Children.Add(playerBlockBorder);
             }
         }
 
