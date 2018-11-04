@@ -52,8 +52,11 @@
             </Button>
         </StackPanel>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-        <Border x:Name="MainSavedText" Visibility="Hidden" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock FontSize="20" Background="Green" Padding="15">
+        <Border x:Name="PlayerWonTextBorder" Visibility="Hidden" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock x:Name="PlayerWonText" FontSize="20" Background="Green" Padding="15" />
+        </Border>
+        <Border x:Name="MainSavedTextBorder" Visibility="Hidden" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock x:Name="MainSavedText" FontSize="20" Background="Green" Padding="15">
                     Opgeslagen!
             </TextBlock>
         </Border>

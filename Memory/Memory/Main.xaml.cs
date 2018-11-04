@@ -128,13 +128,13 @@ namespace Memory
         /// </summary>
         private void SetMainSavedText()
         {
-            MainSavedText.Visibility = Visibility.Visible;
+            MainSavedTextBorder.Visibility = Visibility.Visible;
 
             Task.Delay(MAIN_SAVED_TEXT_DELAY).ContinueWith(_ =>
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    MainSavedText.Visibility = Visibility.Hidden;
+                    MainSavedTextBorder.Visibility = Visibility.Hidden;
                 });
             });
         }

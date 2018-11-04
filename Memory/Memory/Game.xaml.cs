@@ -35,7 +35,7 @@ namespace Memory
 
         private const int START_PLAYER = 1;
 
-        private const int WON_GAME_TRANSITION_DELAY = 2000;
+        private const int WON_GAME_TRANSITION_DELAY = 5000;
         private const int CARD_COMPARE_DELAY = 500;
 
         private bool cardsClickable = true;
@@ -152,6 +152,11 @@ namespace Memory
         private Player GetActivePlayer()
         {
             return main.players.Where(p => p.Turn == true).ToList().First();
+        }
+
+        private Player GetWinner()
+        {
+            return main.players.OrderBy(p => p.Score).ToList().First();
         }
 
         /// <summary>
@@ -523,13 +528,27 @@ namespace Memory
 
             if (GetFlippedCards().Count == main.cards.Count)
             {
+                SetPlayerWonText($"{GetWinner().Name} heeft gewonnen!");
+
                 Task.Delay(WON_GAME_TRANSITION_DELAY).ContinueWith(_ =>
                 {
                     main.Dispatcher.Invoke(() =>
                     {
+                        SetPlayerWonText();
                         NavigationService.Navigate(new HighScore(true));
                     });
                 });
+            }
+        }
+
+        private void SetPlayerWonText(string text = "")
+        {
+            if (main.PlayerWonTextBorder.IsVisible)
+                main.PlayerWonTextBorder.Visibility = Visibility.Hidden;
+            else
+            {
+                main.PlayerWonTextBorder.Visibility = Visibility.Visible;
+                main.PlayerWonText.Text = text;
             }
         }
 
