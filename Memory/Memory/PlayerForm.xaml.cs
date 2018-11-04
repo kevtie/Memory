@@ -83,6 +83,7 @@ namespace Memory
                 SetButtons();
                 ActivePlayerListBorder.Visibility = Visibility.Visible;
                 UserInput.Clear();
+                UserInput.Focus();
             }
         }
 
