@@ -527,7 +527,7 @@ namespace Memory
                 {
                     main.Dispatcher.Invoke(() =>
                     {
-                        NavigationService.Navigate(new HighScore());
+                        NavigationService.Navigate(new HighScore(true));
                     });
                 });
             }

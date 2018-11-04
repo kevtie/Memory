@@ -8,8 +8,8 @@
         Title="Memory Game" Height="700" Width="1500">
     <DockPanel>
         <StackPanel Margin="5">
-            <Button x:Name="Shuffle" Click="Reset_Click" Content="Reset"/>
-            <ComboBox x:Name="GameGridOptions" SelectionChanged="GameGridOptions_SelectionChanged">
+            <Button x:Name="Shuffle" Click="Reset_Click" Content="Reset" VerticalAlignment="Center" Margin="2" Padding="5" Background="Black" Foreground="White" />
+            <ComboBox x:Name="GameGridOptions" SelectionChanged="GameGridOptions_SelectionChanged"  VerticalAlignment="Center" Margin="2" Padding="5">
                 <ComboBoxItem>
                     4x4
                 </ComboBoxItem>

@@ -32,7 +32,7 @@ namespace Memory
         /// <summary>
         /// HighScore is a method that gets excecuted when a new HighScore object is created.
         /// </summary>
-        public HighScore()
+        public HighScore(bool playerWon = false)
         {
             InitializeComponent();
             CreateGrid();
@@ -40,7 +40,7 @@ namespace Memory
             if (!File.Exists("HighScores.xml"))
                 CreateHighScoreFile();
 
-            if (main.players.Count > 0)
+            if (main.players.Count > 0 && playerWon)
                 AddHighScores();
 
             GetHighScoreFileData();
