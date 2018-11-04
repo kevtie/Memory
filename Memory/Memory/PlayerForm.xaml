@@ -8,18 +8,27 @@
       d:DesignHeight="500" d:DesignWidth="700"
       Title="PlayerForm">
 
-    <Grid x:Name="PlayerFormContainer" VerticalAlignment="Center" Background="White" Height="500">
-        <StackPanel HorizontalAlignment="Stretch">
-            <ListView x:Name="ActivePlayerList" Margin="5" Padding="40">
+    <StackPanel HorizontalAlignment="Stretch" Margin="50">
+        <Border x:Name="ActivePlayerListBorder" Visibility="Hidden" BorderThickness="5" BorderBrush="Black" CornerRadius="5" Margin="15">
+            <ListView x:Name="ActivePlayerList" Padding="25" FontSize="40">
                 <Grid x:Name="ActivePlayerListGrid" Width="500" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                 </Grid>
             </ListView>
-            <TextBox Margin="5" Name="UserInput" />
-            <Button x:Name="AddPlayerButton" Margin="5" Content="Voeg Speler toe" Click="Button_ClickAdd" />
-            <Button x:Name="StartGameButton" Margin="5" Content="Start spel" Click="Button_ClickStart" />
-        </StackPanel>
-    </Grid>
+        </Border>
+
+        <Border x:Name="UserInputBorder" BorderThickness="5" BorderBrush="Black" CornerRadius="5" Margin="15">
+            <TextBox x:Name="UserInput" Padding="25" FontSize="40"/>
+        </Border>
+
+        <Border x:Name="AddPlayerButtonBorder" BorderThickness="5" BorderBrush="Black" CornerRadius="5" Margin="15">
+            <Button x:Name="AddPlayerButton" Click="Button_ClickAdd" Padding="25" Content="Voeg Speler toe" FontSize="40" Background="Green" FontWeight="SemiBold"/>
+        </Border>
+
+        <Border x:Name="StartGameButtonBorder" Visibility="Hidden" BorderThickness="5" BorderBrush="Black" CornerRadius="5" Margin="15">
+            <Button x:Name="StartGameButton" Click="Button_ClickStart" Padding="25" Content="Start spel" FontSize="40" Background="Green" FontWeight="SemiBold"/>
+        </Border>
+    </StackPanel>
 </Page>

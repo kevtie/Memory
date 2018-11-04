@@ -32,6 +32,7 @@ namespace Memory
         {
             InitializeComponent();
             SetButtons();
+            UserInput.Focus();
         }
 
         /// <summary>
@@ -40,9 +41,9 @@ namespace Memory
         private void SetStartGameButton()
         {
             if (main.players.Count <= 0)
-                StartGameButton.Visibility = Visibility.Hidden;
+                StartGameButtonBorder.Visibility = Visibility.Hidden;
             else
-                StartGameButton.Visibility = Visibility.Visible;
+                StartGameButtonBorder.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -51,9 +52,12 @@ namespace Memory
         private void SetAddPlayerButton()
         {
             if (main.players.Count >= PLAYER_LIMIT)
-                AddPlayerButton.Visibility = Visibility.Hidden;
+            {
+                UserInputBorder.Visibility = Visibility.Hidden;
+                AddPlayerButtonBorder.Visibility = Visibility.Hidden;
+            }
             else
-                AddPlayerButton.Visibility = Visibility.Visible;
+                AddPlayerButtonBorder.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -77,6 +81,7 @@ namespace Memory
                 SetPlayerData(new Player(playerCounter, false, 0, UserInput.Text));
                 playerCounter++;
                 SetButtons();
+                ActivePlayerListBorder.Visibility = Visibility.Visible;
                 UserInput.Clear();
             }
         }
