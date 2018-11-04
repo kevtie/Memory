@@ -44,6 +44,7 @@ namespace Memory
 
         private List<Position> positions = new List<Position>();
         private List<Background> backgrounds = new List<Background>();
+        private List<Image> cardImageList = new List<Image>();
 
         private Main main = ((Main)Application.Current.MainWindow);
 
@@ -247,6 +248,8 @@ namespace Memory
             image.Margin = new Thickness(5);
             image.MouseDown += new MouseButtonEventHandler(Card_Click);
 
+            cardImageList.Add(image);
+
             Grid.SetColumn(image, column);
             Grid.SetRow(image, row);
             GameGrid.Children.Add(image);
@@ -273,8 +276,6 @@ namespace Memory
         /// </summary>
         private void SetCards()
         {
-            ResetGameGrid();
-
             foreach (var card in main.cards)
             {
                 SetCard(card.Id, card.DuplicateId, card.Active, card.Title, card.Column, card.Row, card.Flipped, card.FrontBackground, card.BackBackground); 
@@ -370,6 +371,13 @@ namespace Memory
             GameBoard.Children.Clear();
         }
 
+        private void PlayFlipCardSound()
+        {
+            MediaPlayer player = new MediaPlayer();
+            player.Open(new Uri(@"../../Resources/card_flip.wav", UriKind.Relative));
+            player.Play();
+        }
+
         /// <summary>
         /// FlipCard is a method that sets card Object flipped state.
         /// </summary>
@@ -378,8 +386,11 @@ namespace Memory
         {
             cardsClickable = false;
 
-            if (!card.Flipped) 
+            if (!card.Flipped)
+            {
+                PlayFlipCardSound();
                 card.Flipped = true;
+            }
             else 
                 card.Flipped = false;
 
