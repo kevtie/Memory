@@ -132,8 +132,19 @@ namespace Memory
                 TextBlock nameBlock = new TextBlock();
 
                 rankBlock.Text = row.ToString();
+                rankBlock.Padding = new Thickness(5);
+                rankBlock.Margin = new Thickness(5);
+                rankBlock.FontSize = 20;
+
                 scoreBlock.Text = player.Score.ToString();
+                scoreBlock.Padding = new Thickness(5);
+                scoreBlock.Margin = new Thickness(5);
+                scoreBlock.FontSize = 20;
+
                 nameBlock.Text = player.Name;
+                nameBlock.Padding = new Thickness(5);
+                nameBlock.Margin = new Thickness(5);
+                nameBlock.FontSize = 20;
 
                 Grid.SetColumn(rankBlock, 0);
                 Grid.SetColumn(scoreBlock, 1);

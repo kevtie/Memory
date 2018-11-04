@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HighScore">
 
-    <Grid x:Name="HighScoreGrid" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="100" ShowGridLines="True">
+    <Grid x:Name="HighScoreGrid" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="85" ShowGridLines="True">
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -17,8 +17,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0">Rang:</TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="1">Score:</TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="2">Naam:</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="0" Padding="5" FontSize="40">Rang:</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" Padding="5" FontSize="40">Score:</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="2" Padding="5" FontSize="40">Naam:</TextBlock>
     </Grid>
 </Page>
