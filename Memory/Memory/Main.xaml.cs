@@ -24,6 +24,9 @@ namespace Memory
     /// </summary>
     public partial class Main : Window  
     {
+
+        private const int MAIN_SAVED_TEXT_DELAY = 1000;
+
         public int currentGameColumns;
         public int currentGameRows;
 
@@ -110,7 +113,24 @@ namespace Memory
             if (!File.Exists("Memory.sav"))
                 CreateSaveFile();
 
+            SetMainSavedText();
             AddGameData();
+        }
+
+        /// <summary>
+        /// SetStartGameButton is a method that toggles between hidden and visble on the StartGameButton.
+        /// </summary>
+        private void SetMainSavedText()
+        {
+            MainSavedText.Visibility = Visibility.Visible;
+
+            Task.Delay(MAIN_SAVED_TEXT_DELAY).ContinueWith(_ =>
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    MainSavedText.Visibility = Visibility.Hidden;
+                });
+            });
         }
 
         /// <summary>
