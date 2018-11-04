@@ -44,7 +44,7 @@ namespace Memory
                 AddHighScores();
 
             GetHighScoreFileData();
-            SetHighScores();
+            SetHighScores();    
         }
 
         /// <summary>
@@ -94,7 +94,6 @@ namespace Memory
                     new XElement("Score", player.Score),
                     new XElement("Turn", player.Turn),
                     new XElement("Name", player.Name)
-                    //new XElement("Status", player.Status)
                 )
             );
 

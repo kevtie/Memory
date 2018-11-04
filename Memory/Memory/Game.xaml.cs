@@ -35,7 +35,7 @@ namespace Memory
 
         private const int START_PLAYER = 1;
 
-        private const int WON_GAME_TRANSITION_DELAY = 5000;
+        private const int WON_GAME_TRANSITION_DELAY = 2500;
         private const int CARD_COMPARE_DELAY = 500;
 
         private bool cardsClickable = true;
@@ -156,7 +156,7 @@ namespace Memory
 
         private Player GetWinner()
         {
-            return main.players.OrderBy(p => p.Score).ToList().First();
+            return main.players.OrderByDescending(p => p.Score).ToList().First();
         }
 
         /// <summary>
@@ -241,11 +241,10 @@ namespace Memory
         private void SetCard(int id, int duplicateId, bool active, string title, int column, int row, bool flipped, string frontBackground, string backBackground)
         {
             Image image = new Image();
-            Border border = new Border();
 
             image.Source = SetCardState(flipped, frontBackground, backBackground);
             image.Name = "c" + id.ToString();
-            image.Margin = new Thickness(2);
+            image.Margin = new Thickness(5);
             image.MouseDown += new MouseButtonEventHandler(Card_Click);
 
             Grid.SetColumn(image, column);
@@ -274,7 +273,9 @@ namespace Memory
         /// </summary>
         private void SetCards()
         {
-            foreach(var card in main.cards)
+            ResetGameGrid();
+
+            foreach (var card in main.cards)
             {
                 SetCard(card.Id, card.DuplicateId, card.Active, card.Title, card.Column, card.Row, card.Flipped, card.FrontBackground, card.BackBackground); 
             }
@@ -302,7 +303,7 @@ namespace Memory
         private void AddBackgrounds()
         {
             for(int i = 1; i <= GetGridSize() / 2; i++)
-                backgrounds.Add(new Background(i, "Resources/card_back.jpg", $"Resources/{i}.jpg"));
+                backgrounds.Add(new Background(i, @"../../Resources/card_back.jpg", $@"../../Resources/{i}.jpg"));
         }
 
         /// <summary>
@@ -387,11 +388,16 @@ namespace Memory
 
         private void LoadGameGrid()
         {
+            ResetGameGrid();
+            SetCards();
+            SetGridOptionValue();
+        }
+
+        private void ResetGameGrid()
+        {
             ClearGrid();
             SetGridSize(main.currentGameColumns, main.currentGameRows);
             CreateGrid(main.currentGameColumns, main.currentGameRows);
-            SetCards();
-            SetGridOptionValue();
         }
 
         /// <summary>
@@ -452,9 +458,8 @@ namespace Memory
                 }
 
                 TextBlock playerBlock = new TextBlock();
-                playerBlock.Text = $"{player.Name}: Score: {player.Score}";
-                playerBlock.Padding = new Thickness(4);
-                playerBlock.Margin = new Thickness(4);
+                playerBlock.Text = $"{player.Name} heeft {player.Score} punten";
+                playerBlock.Padding = new Thickness(5);
                 playerBlock.Foreground = playerBlockBorderForeground;
                 playerBlock.FontSize = 20;
                 playerBlock.HorizontalAlignment = HorizontalAlignment.Center;
@@ -464,7 +469,7 @@ namespace Memory
                 playerBlockBorder.BorderBrush = Brushes.Black;
                 playerBlockBorder.BorderThickness = new Thickness(1);
                 playerBlockBorder.CornerRadius = new CornerRadius(5);
-                playerBlockBorder.Margin = new Thickness(2);
+                playerBlockBorder.Margin = new Thickness(5);
 
                 playerBlockBorder.Child = playerBlock;
 
@@ -528,7 +533,8 @@ namespace Memory
 
             if (GetFlippedCards().Count == main.cards.Count)
             {
-                SetPlayerWonText($"{GetWinner().Name} heeft gewonnen!");
+                Player winner = GetWinner();
+                SetPlayerWonText($"{winner.Name} heeft gewonnen met {winner.Score} punten!");
 
                 Task.Delay(WON_GAME_TRANSITION_DELAY).ContinueWith(_ =>
                 {

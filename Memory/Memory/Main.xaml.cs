@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,6 +28,8 @@ namespace Memory
 
         private const int MAIN_SAVED_TEXT_DELAY = 1000;
 
+        private MediaPlayer backgroundMusicPlayer;
+
         public int currentGameColumns;
         public int currentGameRows;
 
@@ -40,7 +43,15 @@ namespace Memory
         public Main()
         {
             InitializeComponent();
+            PlayBackgroundMusic();
             MainFrame.Content = new Splash();
+        }
+
+        private void PlayBackgroundMusic()
+        {
+            backgroundMusicPlayer = new MediaPlayer();
+            backgroundMusicPlayer.Open(new Uri(@"../../Resources/background_music.mp3", UriKind.Relative));
+            backgroundMusicPlayer.Play();
         }
 
         /// <summary>

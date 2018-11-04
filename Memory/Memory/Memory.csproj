@@ -58,6 +58,7 @@
     <Resource Include="Resources\8.jpg" />
     <Resource Include="Resources\9.jpg" />
     <Resource Include="Resources\background.png" />
+    <Resource Include="Resources\background_music.mp3" />
     <Resource Include="Resources\card_back.jpg" />
     <Resource Include="Resources\copyright.txt" />
     <Resource Include="Resources\loadbutton.jpg" />
