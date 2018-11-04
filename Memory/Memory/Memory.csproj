@@ -87,6 +87,9 @@
     <Compile Include="HighScore.xaml.cs">
       <DependentUpon>HighScore.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Splash.xaml.cs">
+      <DependentUpon>Splash.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PlayerForm.xaml.cs">
       <DependentUpon>PlayerForm.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -96,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Help.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Splash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

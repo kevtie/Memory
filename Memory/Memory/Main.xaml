@@ -16,27 +16,32 @@
             <Button Click="Button_Click" Content="Menu" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="2" Padding="5" Background="Black" Foreground="White">
                 <Button.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="New" Click="Button_Clicknew">
+                        <MenuItem Header="Hoofdmenu" Click="Button_ClickMain">
                             <MenuItem.Icon>
                                 <Image Source="Resources/optionbutton.png"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Save" Click="Button_ClickSave">
+                        <MenuItem Header="Nieuw Spel" Click="Button_Clicknew">
+                            <MenuItem.Icon>
+                                <Image Source="Resources/optionbutton.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Opslaan" Click="Button_ClickSave">
                             <MenuItem.Icon>
                                 <Image Source="Resources/savebutton.png" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Load" Click="Button_Clickload">
+                        <MenuItem Header="Laden" Click="Button_Clickload">
                             <MenuItem.Icon>
                                 <Image Source="Resources/loadbutton.jpg"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="help" Click="Button_Clickhelp">
+                        <MenuItem Header="Spelregels" Click="Button_Clickhelp">
                             <MenuItem.Icon>
                                 <Image Source="Resources/resetbutton.png"/>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="high score" Click="Button_ClickHighScore">
+                        <MenuItem Header="High Score" Click="Button_ClickHighScore">
                             <MenuItem.Icon>
                                 <Image Source="Resources/resetbutton.png"/>
                             </MenuItem.Icon>

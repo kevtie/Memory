@@ -40,6 +40,7 @@ namespace Memory
         public Main()
         {
             InitializeComponent();
+            MainFrame.Content = new Splash();
         }
 
         /// <summary>
@@ -48,10 +49,15 @@ namespace Memory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Clicknew(object sender, RoutedEventArgs e)
+        public void Button_Clicknew(object sender, RoutedEventArgs e)
         {
             players.Clear();
             MainFrame.Content = new PlayerForm();
+        }
+
+        private void Button_ClickMain(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Content = new Splash();
         }
 
         /// <summary>
@@ -59,7 +65,7 @@ namespace Memory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void Button_Click(object sender, RoutedEventArgs e)
         {
             Button button = (sender as Button);
             button.ContextMenu.IsEnabled = true;
@@ -73,7 +79,7 @@ namespace Memory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Clickload(object sender, RoutedEventArgs e)
+        public void Button_Clickload(object sender, RoutedEventArgs e)
         {
             LoadSaveFile();
         }
@@ -83,7 +89,7 @@ namespace Memory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Clickhelp(object sender, RoutedEventArgs e)
+        public void Button_Clickhelp(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new Help();
         }
@@ -94,7 +100,7 @@ namespace Memory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_ClickHighScore(object sender, RoutedEventArgs e)
+        public void Button_ClickHighScore(object sender, RoutedEventArgs e)
         {
             MainFrame.Content = new HighScore();
         }
@@ -105,7 +111,7 @@ namespace Memory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_ClickSave(object sender, RoutedEventArgs e)
+        public void Button_ClickSave(object sender, RoutedEventArgs e)
         {
             if (File.Exists("Memory.sav"))
                 RemoveSaveFile();
@@ -310,7 +316,7 @@ namespace Memory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Clickquit(object sender, RoutedEventArgs e)
+        public void Button_Clickquit(object sender, RoutedEventArgs e)
         {
             Close();
         }
